@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboumaza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 10:17:27 by eboumaza          #+#    #+#             */
-/*   Updated: 2023/11/22 10:17:28 by eboumaza         ###   ########.fr       */
+/*   Created: 2023/11/22 11:13:27 by eboumaza          #+#    #+#             */
+/*   Updated: 2023/11/22 11:13:28 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
+#include <fcntl.h>
 
 static int	argv_verificator(char **argv, int argc)
 {
@@ -62,24 +63,70 @@ static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a)
 	return (temp);
 }
 
+int	ft_stack_verificator(t_stack *stack_a)
+{
+	int	temp;
+
+	while (stack_a->next)
+	{
+		temp = stack_a->num;
+		stack_a = stack_a->next;
+		if (stack_a->num < temp)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_checker(t_stack *stack_a, char *instruct, int std)
+{
+	t_stack	*stack_b;
+	t_stack	*temp;
+
+	stack_b = NULL;
+	while (instruct)
+	{
+		if (!strcmp(instruct, "pa\r\n"))
+		{
+			temp = stack_a;
+			stack_a = ft_push_stack(stack_a, stack_b);
+			stack_b = temp;
+		}
+		if (!strcmp(instruct, "ra\r\n"))
+			stack_a = ft_reverse_stack(stack_a);
+		if (!strcmp(instruct, "pb\r\n"))
+		{
+			temp = stack_b;
+			stack_b = ft_push_stack(stack_b, stack_a);
+			stack_a = temp;
+		}
+		free(instruct);
+		instruct = get_next_line(std);
+	}
+	return (ft_stack_verificator(stack_a));
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	t_stack	*temp;
+	char	*instruct;
+	int		verif;
+	int		fd;
 
+	fd = open("checker_files/test.txt", O_RDONLY);
 	if (argc == 1)
 		return (0);
 	if (!argv_verificator(argv, argc))
 		return (0);
 	stack_a = ft_newstack(ft_atoi(argv[1]), 1, 'a');
-	temp = ft_newstack(ft_atoi(argv[1]), 1, 'a');
 	stack_a_filler(argv, argc, stack_a);
-	stack_a_filler(argv, argc, temp);
-	if (!stack_a || !temp)
-		return (ft_free_stack(stack_a, temp));
-	ft_printf("Init a and b :\n");
-	ft_printer(stack_a, NULL);
-	ft_radix(stack_a, temp);
-	ft_free_stack(NULL, temp);
+	if (!stack_a)
+		return (ft_free_stack(stack_a, NULL));
+	instruct = get_next_line(fd);
+	verif = ft_checker(stack_a, instruct, fd);
+	if (verif)
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
+	ft_free_stack(stack_a, NULL);
 	return (0);
 }
