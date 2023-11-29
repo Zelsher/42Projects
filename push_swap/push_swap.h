@@ -37,4 +37,9 @@ t_stack		*ft_resolver(t_stack *stack_a, t_stack *before, t_stack *current);
 t_stack		*ft_reverse_stack(t_stack *stack_a);
 t_stack		*ft_push_stack(t_stack *stack_a, t_stack *stack_b);
 
+/*Checker*/
+
+t_stack		*ft_reverse_stack_checker(t_stack *stack_a);
+t_stack		*ft_push_stack_checker(t_stack *pushed_stack, t_stack *receiver);
+
 #endif

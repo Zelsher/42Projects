@@ -88,15 +88,15 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 		if (!strcmp(instruct, "pa\r\n"))
 		{
 			temp = stack_a;
-			stack_a = ft_push_stack(stack_a, stack_b);
+			stack_a = ft_push_stack_checker(stack_a, stack_b);
 			stack_b = temp;
 		}
 		if (!strcmp(instruct, "ra\r\n"))
-			stack_a = ft_reverse_stack(stack_a);
+			stack_a = ft_reverse_stack_checker(stack_a);
 		if (!strcmp(instruct, "pb\r\n"))
 		{
 			temp = stack_b;
-			stack_b = ft_push_stack(stack_b, stack_a);
+			stack_b = ft_push_stack_checker(stack_b, stack_a);
 			stack_a = temp;
 		}
 		free(instruct);

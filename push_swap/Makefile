@@ -40,7 +40,7 @@ $(OBJ_DIR_PUSH_SWAP)/stack_util.o: stack_util.c
 $(OBJ_DIR_CHECKER)/%.o: checker/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	
-$(OBJ_DIR_CHECKER)/checker.o: checker_files/checker.c
+$(OBJ_DIR_CHECKER)/%.o: checker_files/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR_CHECKER)/%.o: checker/%.c

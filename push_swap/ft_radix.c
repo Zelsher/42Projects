@@ -83,10 +83,7 @@ void	ft_radix(t_stack *stack_a, t_stack *temp)
 
 	before = NULL;
 	stack_a = ft_resolver(stack_a, before, stack_a);
-	ft_printf("Exec :\n");
-	ft_printer(stack_a, NULL);
 	stack_a = ft_stack_placer(stack_a, temp);
-	ft_printer(stack_a, NULL);
 	y = 0;
 	i = 0;
 	max_digit = ft_max_digit(stack_a);
@@ -97,6 +94,4 @@ void	ft_radix(t_stack *stack_a, t_stack *temp)
 		stack_a = ft_radixer(stack_a, max_digit, i);
 		i++;
 	}
-	ft_printf("Radix :\n");
-	ft_printer(stack_a, NULL);
 }

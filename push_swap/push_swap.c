@@ -78,7 +78,6 @@ int	main(int argc, char **argv)
 	if (!stack_a || !temp)
 		return (ft_free_stack(stack_a, temp));
 	ft_printf("Init a and b :\n");
-	ft_printer(stack_a, NULL);
 	ft_radix(stack_a, temp);
 	ft_free_stack(NULL, temp);
 	return (0);

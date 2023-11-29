@@ -87,30 +87,3 @@ t_stack	*ft_push_stack(t_stack *pushed_stack, t_stack *receiver)
 		pushed_stack->stack = 'a';
 	return (temp);
 }
-
-int	ft_printer(t_stack *stack_a, t_stack *stack_b)
-{
-	t_stack	*temp;
-
-	temp = stack_a;
-	ft_printf("\n");
-	while (temp)
-	{
-		ft_printf("%d ", temp->place);
-		temp = temp->next;
-	}
-	ft_printf("\n___________________________\n");
-	while (stack_a)
-	{
-		ft_printf("%d ", stack_a->num);
-		stack_a = stack_a->next;
-	}
-	ft_printf("| a\n");
-	while (stack_b)
-	{
-		ft_printf("%d ", stack_b->num);
-		stack_b = stack_b->next;
-	}
-	ft_printf("|b\n\n---------------------------------------------------\n");
-	return (1);
-}
