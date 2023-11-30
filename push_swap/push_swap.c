@@ -23,7 +23,7 @@ static int	argv_verificator(char **argv, int argc)
 	{
 		while (argv[i][j])
 		{
-			if (!ft_isdigit(argv[i][j]) && !ft_iswspace(argv[i][j]) 
+			if (!ft_isdigit(argv[i][j]) && !ft_iswspace(argv[i][j])
 			&& !ft_isminorplus(argv[i][j]))
 				return (0);
 			j++;
