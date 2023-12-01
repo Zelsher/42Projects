@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 /*cspdiuxX%*/
 
-#include "../libft.h"
+#include "ft_printf.h"
 
 int	ft_print_format(va_list ap, char c)
 {
@@ -64,20 +64,23 @@ const char	*ft_printfer(const char *str)
 
 size_t	ft_printed_count(const char *str)
 {
-	size_t	i;
-	size_t	j;
+	int	j;
+	int	i;
 
 	i = 0;
 	j = 0;
 	while (str[i + j])
 	{
+		if (str[i + j] != '%')
+			i++;
 		if (str[i + j] == '%')
 		{
 			j++;
 			if (str[i + j] != '%')
 				j++;
+			else
+				i++;
 		}
-		i++;
 	}
 	return (i);
 }
@@ -88,8 +91,7 @@ int	ft_printf(const char *str, ...)
 	size_t	i;
 	char	c;
 
-	i = 0;
-	i += ft_printed_count(str);
+	i = ft_printed_count(str);
 	va_start(args, str);
 	while (1)
 	{

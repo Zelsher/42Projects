@@ -64,20 +64,23 @@ const char	*ft_printfer(const char *str)
 
 size_t	ft_printed_count(const char *str)
 {
-	size_t	i;
-	size_t	j;
+	int	j;
+	int	i;
 
 	i = 0;
 	j = 0;
 	while (str[i + j])
 	{
+		if (str[i + j] != '%')
+			i++;
 		if (str[i + j] == '%')
 		{
 			j++;
 			if (str[i + j] != '%')
 				j++;
+			else
+				i++;
 		}
-		i++;
 	}
 	return (i);
 }
@@ -88,8 +91,7 @@ int	ft_printf(const char *str, ...)
 	size_t	i;
 	char	c;
 
-	i = 0;
-	i += ft_printed_count(str);
+	i = ft_printed_count(str);
 	va_start(args, str);
 	while (1)
 	{
@@ -103,4 +105,17 @@ int	ft_printf(const char *str, ...)
 		str++;
 		i += ft_print_format(args, c);
 	}
+}
+
+#include <stdio.h>
+
+int	main()
+{
+	size_t	i;
+
+    i = ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+    printf("\n%ld\n", i);
+	i = printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+    printf("\n%ld\n", i);
+	return (0);
 }

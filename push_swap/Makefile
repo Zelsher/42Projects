@@ -36,7 +36,6 @@ $(OBJ_DIR_PUSH_SWAP)/%.o: %.c
 $(OBJ_DIR_PUSH_SWAP)/stack_util.o: stack_util.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Ajout des dépendances explicites pour les fichiers objets dans checker_a/obj
 $(OBJ_DIR_CHECKER)/%.o: checker/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	
