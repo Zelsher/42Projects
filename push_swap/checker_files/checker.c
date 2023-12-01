@@ -83,17 +83,17 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 	t_stack	*temp;
 
 	stack_b = NULL;
-	while (instruct)
+	while (instruct!= NULL && strcmp(instruct , "\n"))
 	{
-		if (!strcmp(instruct, "pa\r\n"))
+		if (!strcmp(instruct, "pa\n"))
 		{
 			temp = stack_a;
 			stack_a = ft_push_stack_checker(stack_a, stack_b);
 			stack_b = temp;
 		}
-		if (!strcmp(instruct, "ra\r\n"))
+		if (!strcmp(instruct, "ra\n"))
 			stack_a = ft_reverse_stack_checker(stack_a);
-		if (!strcmp(instruct, "pb\r\n"))
+		if (!strcmp(instruct, "pb\n"))
 		{
 			temp = stack_b;
 			stack_b = ft_push_stack_checker(stack_b, stack_a);
@@ -102,8 +102,11 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 		free(instruct);
 		instruct = get_next_line(std);
 	}
+	ft_printer(stack_a, stack_b);
 	return (ft_stack_verificator(stack_a));
 }
+
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -121,12 +124,13 @@ int	main(int argc, char **argv)
 	stack_a_filler(argv, argc, stack_a);
 	if (!stack_a)
 		return (ft_free_stack(stack_a, NULL));
-	instruct = get_next_line(fd);
-	verif = ft_checker(stack_a, instruct, fd);
+	instruct = get_next_line(0);
+	verif = ft_checker(stack_a, instruct, 0);
 	if (verif)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
 	ft_free_stack(stack_a, NULL);
+	(void)fd;
 	return (0);
 }
