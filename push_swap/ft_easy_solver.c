@@ -12,8 +12,19 @@
 
 #include "push_swap.h"
 
+t_stack	*ft_three_solver(t_stack *stack_a)
+{
+	if (stack_a->num > stack_a->next->next->num)
+		stack_a = ft_rotate_stack(stack_a);
+	if (stack_a->num > stack_a->next->num)
+		stack_a = ft_swap_stack(stack_a);
+	return (stack_a);
+}
+
 void	ft_easy_solver(t_stack *stack_a, int argc)
 {
+	if (argc == 3)
+		stack_a = ft_three_sovoler(stack_a);
 	(void)stack_a;
 	(void)argc;
 }
