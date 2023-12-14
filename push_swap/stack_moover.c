@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   stack_moover.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboumaza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 11:13:27 by eboumaza          #+#    #+#             */
-/*   Updated: 2023/11/22 11:13:28 by eboumaza         ###   ########.fr       */
+/*   Created: 2023/11/22 10:17:27 by eboumaza          #+#    #+#             */
+/*   Updated: 2023/11/22 10:17:28 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
-t_stack	*ft_rotate_stack_checker(t_stack *stack_a)
+t_stack	*ft_rotate_stack(t_stack *stack_a)
 {
 	t_stack	*temp;
 	t_stack	*current;
 
+	ft_printf("ra\n");
 	temp = stack_a->next;
 	current = stack_a;
 	while (current->next)
@@ -26,10 +27,27 @@ t_stack	*ft_rotate_stack_checker(t_stack *stack_a)
 	return (temp);
 }
 
-t_stack	*ft_push_stack_checker(t_stack *pushed_stack, t_stack *receiver)
+t_stack	*ft_reverse_stack(t_stack *stack_a)
+{
+	t_stack	*temp;
+	t_stack	*current;
+
+	ft_printf("rra\n");
+	current = stack_a;
+	while (current->next->next)
+		current = current->next;
+	temp = current->next;
+	current->next = NULL;
+	temp->next = stack_a;
+	return (temp);
+}
+
+
+t_stack	*ft_push_stack(t_stack *pushed_stack, t_stack *receiver)
 {
 	t_stack	*temp;
 
+	ft_printf("p%c\n", pushed_stack->stack);
 	temp = pushed_stack->next;
 	pushed_stack->next = receiver;
 	if (pushed_stack->stack == 'a')
@@ -39,29 +57,15 @@ t_stack	*ft_push_stack_checker(t_stack *pushed_stack, t_stack *receiver)
 	return (temp);
 }
 
-int	ft_printer(t_stack *stack_a, t_stack *stack_b)
+t_stack	*ft_swap_stack(t_stack *stack_a)
 {
 	t_stack	*temp;
+	t_stack	*first;
 
-	temp = stack_a;
-	ft_printf("\n");
-	while (temp)
-	{
-		ft_printf("%d ", temp->place);
-		temp = temp->next;
-	}
-	ft_printf("\n___________________________\n");
-	while (stack_a)
-	{
-		ft_printf("%d ", stack_a->num);
-		stack_a = stack_a->next;
-	}
-	ft_printf("| a\n");
-	while (stack_b)
-	{
-		ft_printf("%d ", stack_b->num);
-		stack_b = stack_b->next;
-	}
-	ft_printf("|b\n\n---------------------------------------------------\n");
-	return (1);
+	ft_printf("sa\n");
+	temp = stack_a->next->next;
+	first = stack_a->next;
+	stack_a->next = temp;
+	first->next = stack_a;
+	return (first);
 }

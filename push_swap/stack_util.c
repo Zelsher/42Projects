@@ -40,10 +40,12 @@ t_stack	*ft_newstack(int num, int place, char c)
 	return (newlist);
 }
 
-int	ft_free_stack(t_stack *stack_a, t_stack *temp)
+int	ft_free_stack(t_stack *stack_a, t_stack *temp, int test)
 {
 	t_stack	*next;
 
+	if (test == 1)
+		ft_printf("Error\n");
 	while (stack_a)
 	{
 		next = stack_a->next;
@@ -57,33 +59,4 @@ int	ft_free_stack(t_stack *stack_a, t_stack *temp)
 		temp = next;
 	}
 	return (0);
-}
-
-t_stack	*ft_reverse_stack(t_stack *stack_a)
-{
-	t_stack	*temp;
-	t_stack	*current;
-
-	ft_printf("ra\n");
-	temp = stack_a->next;
-	current = stack_a;
-	while (current->next)
-		current = current->next;
-	current->next = stack_a;
-	stack_a->next = NULL;
-	return (temp);
-}
-
-t_stack	*ft_push_stack(t_stack *pushed_stack, t_stack *receiver)
-{
-	t_stack	*temp;
-
-	ft_printf("p%c\n", pushed_stack->stack);
-	temp = pushed_stack->next;
-	pushed_stack->next = receiver;
-	if (pushed_stack->stack == 'a')
-		pushed_stack->stack = 'b';
-	else
-		pushed_stack->stack = 'a';
-	return (temp);
 }

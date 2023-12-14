@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	argv_verificator(char **argv, int argc)
+int	argv_verificator(char **argv, int argc)
 {
 	int	i;
 	int	j;
@@ -34,7 +34,48 @@ static int	argv_verificator(char **argv, int argc)
 	return (1);
 }
 
-static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a)
+int	ft_stack_verificator(t_stack *stack_a)
+{
+	int	temp;
+
+	while (stack_a->next)
+	{
+		temp = stack_a->num;
+		stack_a = stack_a->next;
+		if (stack_a->num < temp)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_stack_atoi(const char *str, int *test)
+{
+	long long int	result;
+	int				i;
+	int				minus;
+
+	i = 0;
+	result = 0;
+	minus = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			minus *= -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57 && str[i])
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	if ((int)result * minus <= -2147483647)
+		*test = 1;
+	return (result * minus);
+}
+
+static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a, int *test)
 {
 	int		i;
 	t_stack	*next;
@@ -47,14 +88,14 @@ static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a)
 	while (i < argc - 1)
 	{
 		i++;
-		stack_a->next = ft_newstack(ft_atoi(argv[i]), i, 'a');
+		stack_a->next = ft_newstack(ft_stack_atoi(argv[i], test), i, 'a');
 		if (!stack_a->next)
 			return (NULL);
 		stack_a = stack_a->next;
 		next = temp;
 		while (next != stack_a)
 		{
-			if (stack_a->num == next->num)
+			if (stack_a->num == next->num || *test == 1)
 				return (NULL);
 			next = next->next;
 		}
@@ -66,19 +107,25 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*temp;
+	int		test;
 
+	test = 0;
 	if (argc == 1)
 		return (0);
 	if (!argv_verificator(argv, argc))
 		return (0);
-	stack_a = ft_newstack(ft_atoi(argv[1]), 1, 'a');
-	temp = ft_newstack(ft_atoi(argv[1]), 1, 'a');
-	stack_a_filler(argv, argc, stack_a);
-	stack_a_filler(argv, argc, temp);
-	if (!stack_a || !temp)
-		return (ft_free_stack(stack_a, temp));
-	ft_printf("Init a and b :\n");
-	ft_radix(stack_a, temp);
-	ft_free_stack(NULL, temp);
+	stack_a = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
+	temp = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
+	if (!stack_a_filler(argv, argc, stack_a, &test))
+		return (ft_free_stack(stack_a, temp, 1));
+	if (!stack_a_filler(argv, argc, temp, &test))
+		return (ft_free_stack(stack_a, temp, 1));
+	if (ft_stack_verificator(stack_a))
+		return (0);
+	if (argc > 6)
+		ft_radix(stack_a, temp);
+	else
+		ft_easy_solver(stack_a, argc);
+	ft_free_stack(NULL, temp, test);
 	return (0);
 }

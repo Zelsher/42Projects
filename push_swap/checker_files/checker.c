@@ -13,7 +13,7 @@
 #include "../push_swap.h"
 #include <fcntl.h>
 
-static int	argv_verificator(char **argv, int argc)
+int	argv_verificator(char **argv, int argc)
 {
 	int	i;
 	int	j;
@@ -31,6 +31,20 @@ static int	argv_verificator(char **argv, int argc)
 		}
 		i++;
 		j = 0;
+	}
+	return (1);
+}
+
+int	ft_stack_verificator(t_stack *stack_a)
+{
+	int	temp;
+
+	while (stack_a->next)
+	{
+		temp = stack_a->num;
+		stack_a = stack_a->next;
+		if (stack_a->num < temp)
+			return (0);
 	}
 	return (1);
 }
@@ -63,20 +77,6 @@ static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a)
 	return (temp);
 }
 
-int	ft_stack_verificator(t_stack *stack_a)
-{
-	int	temp;
-
-	while (stack_a->next)
-	{
-		temp = stack_a->num;
-		stack_a = stack_a->next;
-		if (stack_a->num < temp)
-			return (0);
-	}
-	return (1);
-}
-
 int	ft_checker(t_stack *stack_a, char *instruct, int std)
 {
 	t_stack	*stack_b;
@@ -92,7 +92,7 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 			stack_b = temp;
 		}
 		if (!strcmp(instruct, "ra\n"))
-			stack_a = ft_reverse_stack_checker(stack_a);
+			stack_a = ft_rotate_stack_checker(stack_a);
 		if (!strcmp(instruct, "pb\n"))
 		{
 			temp = stack_b;
@@ -113,24 +113,22 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	char	*instruct;
 	int		verif;
-	int		fd;
 
-	fd = open("checker_files/test.txt", O_RDONLY);
 	if (argc == 1)
 		return (0);
 	if (!argv_verificator(argv, argc))
 		return (0);
 	stack_a = ft_newstack(ft_atoi(argv[1]), 1, 'a');
-	stack_a_filler(argv, argc, stack_a);
-	if (!stack_a)
-		return (ft_free_stack(stack_a, NULL));
+	if (!stack_a_filler(argv, argc, stack_a))
+		return (ft_free_stack(stack_a, NULL, 0));
 	instruct = get_next_line(0);
+	if (!ft_strcmp(instruct, "Error\n") && ft_stack_verificator(stack_a))
+		return (0);
 	verif = ft_checker(stack_a, instruct, 0);
 	if (verif)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	ft_free_stack(stack_a, NULL);
-	(void)fd;
+	ft_free_stack(stack_a, NULL, 0);
 	return (0);
 }
