@@ -83,7 +83,7 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 	t_stack	*temp;
 
 	stack_b = NULL;
-	while (instruct!= NULL && strcmp(instruct , "\n"))
+	while (instruct != NULL && strcmp(instruct, "\n"))
 	{
 		if (!strcmp(instruct, "pa\n"))
 		{
@@ -105,8 +105,6 @@ int	ft_checker(t_stack *stack_a, char *instruct, int std)
 	ft_printer(stack_a, stack_b);
 	return (ft_stack_verificator(stack_a));
 }
-
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {

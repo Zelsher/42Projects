@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   random.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef RANDOM_H
+# define RANDOM_H
 
 # include <unistd.h>
-# include <stdarg.h>
 # include <stdlib.h>
-
-int		ft_print_c(int c);
-int		ft_print_s(char *s);
-int		ft_print_p(unsigned long int p);
-int		ft_print_d(int d);
-int		ft_print_i(int i);
-int		ft_print_u(unsigned int u);
-int		ft_print_x(unsigned int x);
-int		ft_print_maj_x(unsigned int X);
-
-int		ft_putnbr(int n, int i);
-int		ft_putnbr_unsigned_int(unsigned int n, int i);
-
-char	*ft_putptr(unsigned long int n);
-char	*ft_int_to_hexa(unsigned int n);
-
-int		ft_printf(const char *str, ...);
 
 #endif

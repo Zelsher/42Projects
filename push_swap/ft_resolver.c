@@ -59,11 +59,13 @@ t_stack	*ft_ad(t_stack *fir_p, t_stack *sec_p, char *stack)
 	}
 }
 
-t_stack	*ft_resolver(t_stack *stack_a, t_stack *before, t_stack *current)
+t_stack	*ft_resolver(t_stack *stack_a, t_stack *current)
 {
 	t_stack	*temp;
+	t_stack	*before;
 	int		i;
 
+	before = NULL;
 	while (current && current->next)
 	{
 		temp = current->next;

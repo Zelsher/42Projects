@@ -76,14 +76,21 @@ static int	ft_max_digit(t_stack *stack_a)
 
 void	ft_radix(t_stack *stack_a, t_stack *temp)
 {
-	t_stack	*before;
 	size_t	i;
 	size_t	y;
 	int		max_digit;
 
-	before = NULL;
-	stack_a = ft_resolver(stack_a, before, stack_a);
+	stack_a = ft_resolver(stack_a, stack_a);
 	stack_a = ft_stack_placer(stack_a, temp);
+	i = 1;
+	temp = stack_a;
+	while (temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	if (i <= 5)
+		return (ft_easy_solver(stack_a, i));
 	y = 0;
 	i = 0;
 	max_digit = ft_max_digit(stack_a);

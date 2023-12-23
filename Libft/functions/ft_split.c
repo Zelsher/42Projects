@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-static char	**ft_free(char **str)
+char	**ft_free_double_tab(char **str)
 {
 	size_t	i;
 
@@ -64,7 +64,7 @@ static char	**ft_spliter(char **splited, const char *str, size_t i, char c)
 			return (splited);
 		splited[j] = ft_substr(str, i, k);
 		if (splited[j] == NULL)
-			return (ft_free(splited));
+			return (ft_free_double_tab(splited));
 		j++;
 	}
 	return (splited);

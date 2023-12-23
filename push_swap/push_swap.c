@@ -75,7 +75,7 @@ int	ft_stack_atoi(const char *str, int *test)
 	return (result * minus);
 }
 
-static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a, int *test)
+t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a, int *test)
 {
 	int		i;
 	t_stack	*next;
@@ -103,6 +103,32 @@ static	t_stack	*stack_a_filler(char **argv, int argc, t_stack *stack_a, int *tes
 	return (temp);
 }
 
+t_stack	*ft_one_string_arg(char *str, int *test)
+{
+	size_t	i;
+	t_stack	*stack_a;
+	t_stack	*temp;
+	char	**arguments;
+
+	i = 0;
+	while (ft_isdigit(str[i]) || str[i] == ' ')
+		i++;
+	if (str[i] && (!ft_isdigit(str[i]) || str[i] == ' '))
+		return (NULL);
+	arguments = ft_split(str, ' ');
+	stack_a = ft_newstack(ft_stack_atoi(arguments[0], test), 1, 'a');
+	temp = stack_a;
+	i = 1;
+	while (arguments[i])
+	{
+		stack_a->next = ft_newstack(ft_stack_atoi(arguments[i], test), i + 1, 'a');
+		stack_a = stack_a->next;
+		i++;
+	}
+	ft_free_double_tab(arguments);
+	return (temp);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
@@ -110,22 +136,25 @@ int	main(int argc, char **argv)
 	int		test;
 
 	test = 0;
-	if (argc == 1)
-		return (0);
-	if (!argv_verificator(argv, argc))
-		return (0);
-	stack_a = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
-	temp = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
-	if (!stack_a_filler(argv, argc, stack_a, &test))
-		return (ft_free_stack(stack_a, temp, 1));
-	if (!stack_a_filler(argv, argc, temp, &test))
-		return (ft_free_stack(stack_a, temp, 1));
-	if (ft_stack_verificator(stack_a))
-		return (0);
-	if (argc > 6)
-		ft_radix(stack_a, temp);
+	ft_printf("argc : %d, argv1 : %s\n", argc, argv[1]);
+	if (argc == 2)
+	{
+		stack_a = ft_one_string_arg(argv[1], &test);
+		temp = ft_one_string_arg(argv[1], &test);
+		if (!stack_a)
+			return (ft_free_stack(stack_a, temp, 1));
+	}
 	else
-		ft_easy_solver(stack_a, argc);
-	ft_free_stack(NULL, temp, test);
+	{
+		if (!argv_verificator(argv, argc))
+			return (0);
+		stack_a = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
+		temp = ft_newstack(ft_stack_atoi(argv[1], &test), 1, 'a');
+		if (!stack_a_filler(argv, argc, stack_a, &test))
+			return (ft_free_stack(stack_a, temp, 1));
+		if (!stack_a_filler(argv, argc, temp, &test))
+			return (ft_free_stack(stack_a, temp, 1));
+	}
+	ft_radix(stack_a, temp);
 	return (0);
 }

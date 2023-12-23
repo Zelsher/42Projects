@@ -17,7 +17,7 @@ t_stack	*ft_rotate_stack(t_stack *stack_a)
 	t_stack	*temp;
 	t_stack	*current;
 
-	ft_printf("ra\n");
+	ft_printf("r%c\n", stack_a->stack);
 	temp = stack_a->next;
 	current = stack_a;
 	while (current->next)
@@ -42,7 +42,6 @@ t_stack	*ft_reverse_stack(t_stack *stack_a)
 	return (temp);
 }
 
-
 t_stack	*ft_push_stack(t_stack *pushed_stack, t_stack *receiver)
 {
 	t_stack	*temp;
@@ -62,7 +61,7 @@ t_stack	*ft_swap_stack(t_stack *stack_a)
 	t_stack	*temp;
 	t_stack	*first;
 
-	ft_printf("sa\n");
+	ft_printf("s%c\n", stack_a->stack);
 	temp = stack_a->next->next;
 	first = stack_a->next;
 	stack_a->next = temp;

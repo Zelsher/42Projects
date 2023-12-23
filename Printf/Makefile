@@ -21,7 +21,7 @@ FILES = ft_printf.c \
         ft_putnbr.c \
         ft_int_to_hexa.c \
         ft_putptr.c \
-        ft_putnbr_unsigned_int.c \
+        ft_putnbr_unsigned_int.c
 
 OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(FILES:.c=.o))
@@ -30,7 +30,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(FILES:.c=.o))
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 all: $(NAME)
 
@@ -43,3 +43,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+int n;
+n = ft_printf("%% % %% %d %% 5  %c %s%s %p %%s")

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_random.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "random.h"
+#include <stdio.h>
 
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdlib.h>
+long int	ft_random(int len)
+{
+	long int	num;
+	int			fd;
+	char		*str;
 
-int		ft_print_c(int c);
-int		ft_print_s(char *s);
-int		ft_print_p(unsigned long int p);
-int		ft_print_d(int d);
-int		ft_print_i(int i);
-int		ft_print_u(unsigned int u);
-int		ft_print_x(unsigned int x);
-int		ft_print_maj_x(unsigned int X);
+	fd = open("/proc/uptime", O_RDONLY);
+	str = get_next_line(fd);
+	printf("%s", str);
+	num = 5;
+	return (num);
+}
 
-int		ft_putnbr(int n, int i);
-int		ft_putnbr_unsigned_int(unsigned int n, int i);
-
-char	*ft_putptr(unsigned long int n);
-char	*ft_int_to_hexa(unsigned int n);
-
-int		ft_printf(const char *str, ...);
-
-#endif
+main()
+{
+	ft_random(5);
+	return(0);
+}
