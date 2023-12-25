@@ -48,6 +48,7 @@ int			ft_isalnum(int c);
 int			ft_iswspace(char c);
 int			ft_isminorplus(char c);
 int			ft_power(int number, int power);
+long long int			ft_nbr_reducer(long long int nbr, int digit);
 
 size_t		ft_strlen(const char *str);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
@@ -106,5 +107,12 @@ int			ft_printf(const char *str, ...);
 # endif
 
 char		*get_next_line(int fd);
+
+/*random*/
+
+#include <fcntl.h>
+int				ft_random_seed(long long int seed);
+long long int	ft_random(int seed, int len, int sign);/*len : la longeur du nombre, signe : boolean pour activer ou non les signes*/
+
 
 #endif

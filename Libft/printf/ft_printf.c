@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 /*cspdiuxX%*/
 
-#include "ft_printf.h"
+#include "../libft.h"
 
 int	ft_print_format(va_list ap, char c)
 {
