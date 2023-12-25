@@ -22,19 +22,18 @@ static int	ft_random_atoi(const char *str, size_t len)
 	while (str[i] >= 48 && str[i] <= 57 && str[i])
 	{
 		if (i == len)
-			break;
+			break ;
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
 	return (result);
 }
 
-
 static long long int	ft_seeder(char *time)
 {
 	int					i;
 	long long int		num;
-	
+
 	i = 1;
 	while (time[i - 1] != '.')
 		i++;
@@ -58,8 +57,8 @@ static long long int	ft_seeder(char *time)
 static int	ft_seed_len(long long int seed)
 {
 	long long int	temp;
-	int moove;
-	int	i;
+	int				moove;
+	int				i;
 
 	i = 1;
 	if (seed < 0)
@@ -91,7 +90,7 @@ int	ft_random_seed(long long int seed)
 		fd = open("/proc/uptime", O_RDONLY);
 		if (fd == 0)
 		{
-			ft_printf("Erreur dans ft_random, verifier l'acces au fichier /proc/uptime");
+			ft_printf("Erreur ft_random, verifier /proc/uptime");
 			return (0);
 		}
 		time = get_next_line(fd);

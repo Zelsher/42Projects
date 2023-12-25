@@ -43,6 +43,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
-int n;
-n = ft_printf("%% % %% %d %% 5  %c %s%s %p %%s")

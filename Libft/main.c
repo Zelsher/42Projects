@@ -32,7 +32,6 @@ int main()
 		i++;
 	}
 	i = 0;
-	free(result);
 	ft_printf("\nDoublons : %d\n", doublons);
 	return(0);
 }

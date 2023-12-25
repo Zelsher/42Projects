@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 /*cspdiuxX%*/
 
-#include "ft_printf.h"
+#include "../libft.h"
 
 int	ft_print_format(va_list ap, char c)
 {
@@ -105,17 +105,4 @@ int	ft_printf(const char *str, ...)
 		str++;
 		i += ft_print_format(args, c);
 	}
-}
-
-#include <stdio.h>
-
-int	main()
-{
-	size_t	i;
-
-    i = ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-    printf("\n%ld\n", i);
-	i = printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-    printf("\n%ld\n", i);
-	return (0);
 }

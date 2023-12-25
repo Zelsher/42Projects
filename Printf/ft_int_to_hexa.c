@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../libft.h"
 
 int	ft_conversion_int_to_hexa(unsigned int n, char *str, size_t i)
 {
