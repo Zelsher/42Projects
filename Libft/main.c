@@ -13,13 +13,13 @@ int main()
 
 	i = 0;
 	seed = ft_random_seed(0);
-	result = malloc(sizeof(int) * 10000);
-	while (i < 10000)
+	result = malloc(sizeof(int) * 100);
+	while (i < 100)
 	{
 		j = 0;
-		result[i] = ft_random(seed, 4, 0);
+		result[i] = ft_random(seed, 100, 0);
 		seed = ft_random_seed(seed);
-		ft_printf("Result : %d\n\n", result[i]);
+		ft_printf("Result : ==%d==\n____________\n", result[i]);
 		while (j != i)
 		{
 			if (result[j] == result[i])

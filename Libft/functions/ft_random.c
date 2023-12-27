@@ -106,17 +106,46 @@ int	ft_random_seed(long long int seed)
 	return (seed);
 }
 
-long long int	ft_random(int seed, int len, int sign)
+#include <stdio.h>
+
+long long int	ft_randomizer(long long int seed, long long int num, long long int max, int sign)
+{
+	long long int	len;
+	int				temp;
+
+	len =  ft_nbr_max_pos(max);
+	temp = 0;
+	while (num >= max)
+	{
+		seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF;
+		printf("seed : %lld\n", seed);
+		temp = (temp << 3) | (seed % 8);
+		temp = ft_nbr_reducer(temp, 1);
+		if (len != 1)
+			num += - ((num / len) * len) + (temp * len);
+		else
+			num = temp;
+	}
+	printf("New num  : %lld\n", num);
+	seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF;
+	temp = (temp << 3) | (seed % 8);
+	temp = ft_nbr_reducer(temp, 1);
+	if (sign && (temp != 0 && temp < 5))
+		num *= -1;
+	return (num);
+}
+
+long long int	ft_random(int seed, long long int max, int sign)
 {
 	long long int	num;
+	int				len;
 
+	if (max == 0)
+		return (0);
+	len = ft_nbrlen(max);
 	num = (1664525 * seed + 1013904223) % 4294967296;
-	if (num < 0)
-		num *= -1;
 	num = ft_nbr_reducer(num, len);
-	while (seed >= 10)
-		seed /= 10;
-	if (sign != 0 && seed < 5)
-		num *= -1;
+	printf("NUM : %lld\nSEED : %d\n\n", num, seed);
+	num = ft_randomizer(seed , num, max, sign);
 	return (num);
 }
