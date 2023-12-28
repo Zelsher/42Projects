@@ -12,23 +12,6 @@
 
 #include "../libft.h"
 
-static int	ft_random_atoi(const char *str, size_t len)
-{
-	long long int	result;
-	size_t			i;
-
-	i = 0;
-	result = 0;
-	while (str[i] >= 48 && str[i] <= 57 && str[i])
-	{
-		if (i == len)
-			break ;
-		result = result * 10 + str[i] - '0';
-		i++;
-	}
-	return (result);
-}
-
 static long long int	ft_seeder(char *time)
 {
 	int					i;
@@ -37,9 +20,9 @@ static long long int	ft_seeder(char *time)
 	i = 1;
 	while (time[i - 1] != '.')
 		i++;
-	num = ft_random_atoi(time, i);
+	num = ft_atoi(time + i);
 	if (time[i] != '0' || time[i + 1] != '0')
-		num *= ft_power(ft_random_atoi(time + i, 2), 2);
+		num *= ft_power(ft_atoi(time + i), 2);
 	while (time[i] != '.')
 		i++;
 	if (time[i + 1] == '0' && time[i + 2] == '0')
@@ -47,10 +30,10 @@ static long long int	ft_seeder(char *time)
 		i -= 2;
 		while (time[i + 1] == 0)
 			i--;
-		num *= ft_power(ft_random_atoi(time + i, 2), 2);
+		num *= ft_power(ft_atoi(time + i), 2);
 	}
 	else
-		num *= ft_power(ft_random_atoi(time + i + 1, 2), 2);
+		num *= ft_power(ft_atoi(time + i + 1), 2);
 	return (num);
 }
 
@@ -118,7 +101,6 @@ long long int	ft_randomizer(long long int seed, long long int num, long long int
 	while (num >= max)
 	{
 		seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF;
-		printf("seed : %lld\n", seed);
 		temp = (temp << 3) | (seed % 8);
 		temp = ft_nbr_reducer(temp, 1);
 		if (len != 1)
@@ -126,7 +108,6 @@ long long int	ft_randomizer(long long int seed, long long int num, long long int
 		else
 			num = temp;
 	}
-	printf("New num  : %lld\n", num);
 	seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF;
 	temp = (temp << 3) | (seed % 8);
 	temp = ft_nbr_reducer(temp, 1);
