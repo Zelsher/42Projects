@@ -12,29 +12,36 @@
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -Lminilibx_linux
-LDLIBS = -lmlx -lmlx_Linux -lXext -lX11
-SRC = so_long.c main.c
+LDFLAGS = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11 
+LIB = Libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a
 OBJ_DIR = obj
+SRC = so_long.c \
+      main.c \
+      so_long_color.c \
+	  so_long_frame.c \
+	  so_long_hook.c
+
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 EXEC = so_long
+
+RM = rm -f
 
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $^ $(LDLIBS)
+	$(CC) $^ $(LIB) $(LDFLAGS) -o $@
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INC_DIR) -c -o $@ $<
 
 $(OBJ_DIR):
 	mkdir -p $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(EXEC)
+	$(RM) $(EXEC)
 
 re: fclean all
 
