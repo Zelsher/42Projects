@@ -19,30 +19,40 @@ SRC = so_long.c \
       main.c \
       so_long_color.c \
 	  so_long_frame.c \
-	  so_long_hook.c
+	  so_long_hook.c \
+	  so_long_map.c \
+	  so_long_checker.c \
+	  so_long_parsing.c \
+	  so_long_moove.c \
+	  so_long_init.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 EXEC = so_long
 
 RM = rm -f
 
-all: $(EXEC)
+all: libft $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CC) $^ $(LIB) $(LDFLAGS) -o $@
+	@$(CC) $^ $(LIB) $(LDFLAGS) -o $@
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INC_DIR) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INC_DIR) -c -o $@ $<
 
 $(OBJ_DIR):
-	mkdir -p $@
+	@mkdir -p $@
+
+libft:
+	@make -C Libft
 
 clean:
-	$(RM) -r $(OBJ_DIR)
+	@$(RM) -r $(OBJ_DIR)
+	@$(MAKE) -C Libft clean
 
 fclean: clean
-	$(RM) $(EXEC)
+	@$(RM) $(EXEC)
+	@$(MAKE) -C Libft fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft

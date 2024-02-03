@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   so_long_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,70 +12,42 @@
 
 #include "so_long.h"
 
-int	close_win(t_vars *vars)
+int	close_win(t_game *game)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	free(vars);
-	exit(0);
-}
-
-int	moove_player(t_vars *vars, int keycode)
-{
-	if ((keycode == 100 || keycode == 65363) && vars->x_player < IMAGE_WIDTH - 200)
-	{
-		vars->x_player += 20;
-		vars->moove++;
-	}
-	if ((keycode == 97 || keycode == 65361) && vars->x_player > 0)
-	{
-		vars->x_player -= 20;
-		vars->moove++;
-	}
-	if ((keycode == 115 || keycode == 65364) && vars->y_player < IMAGE_HEIGHT - 200)
-	{
-		vars->y_player += 20;
-		vars->moove++;
-	}
-	if ((keycode == 119 || keycode == 65362) && vars->y_player > 0)
-	{
-		vars->y_player -= 20;
-		vars->moove++;
-	}
-	ft_printf("moove : %d\n", vars->moove);
+	ft_free(game, 5, 0);
 	return (0);
 }
 
-int	keybind(int keycode, t_vars *vars)
+int	keybind(int keycode, t_game *game)
 {
 	ft_printf("Keypressed : %d\n", keycode);
 	if (keycode == 65307)
-		close_win(vars);
-	if (keycode == 115 || keycode == 119 || keycode == 97 || keycode == 100 ||
-		keycode == 65363 || keycode == 65361 || keycode == 65364 || keycode == 65362)
-		moove_player(vars, keycode);
+		close_win(game);
+	if ((game->score != 8) && (keycode == 115 || keycode == 119
+			|| keycode == 97 || keycode == 100 || keycode == 65363
+			|| keycode == 65361 || keycode == 65364 || keycode == 65362))
+		moove_player(game, keycode);
 	return (0);
 }
 
-int	mouse_hook(int keycode, t_vars *vars)
+int	mouse_hook(int keycode, t_game *game)
 {
 	ft_printf("MOUSE : %d\n", keycode);
-	(void)vars;
+	(void)game;
 	return (0);
 }
 
-int	mouse_moove(int x, int y, t_vars *vars)
+int	mouse_moove(int x, int y, t_game *game)
 {
 	ft_printf("PLACE : X=%d | Y=%d\n", x, y);
-	(void)vars;
+	(void)game;
 	return (0);
 }
 
-void    ft_setup_hook(t_vars *vars)
+void	ft_setup_hook(t_game *game)
 {
-	mlx_hook(vars->win, 2, 1L<<0, keybind, vars);
-	mlx_hook(vars->win, 17, 1L<<0, close_win, vars);
-	mlx_mouse_hook(vars->win, mouse_hook, vars);
-	mlx_hook(vars->win, 6, 1L<<6, mouse_moove, vars);
+	mlx_hook(game->win, 2, 1L << 0, keybind, game);
+	mlx_hook(game->win, 17, 1L << 0, close_win, game);
+	mlx_mouse_hook(game->win, mouse_hook, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_moove, game);
 }

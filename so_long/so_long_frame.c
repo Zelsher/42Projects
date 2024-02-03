@@ -12,53 +12,70 @@
 
 #include "so_long.h"
 
-void	ft_spriter(t_vars *vars)
+void	ft_scorer(t_game *game)
 {
-    mlx_put_image_to_window (vars->mlx, vars->win, vars->sprite->house, 0, 0);
-	mlx_put_image_to_window (vars->mlx, vars->win, vars->sprite->shrek, vars->x_player, vars->y_player);
-	if (vars->score != 1 && vars->score != 3 && vars->score != 5 && vars->score != 7)
-		mlx_put_image_to_window (vars->mlx, vars->win, vars->sprite->piece, 500, 500);
-	if (vars->score != 2 && vars->score != 3 && vars->score != 6 && vars->score != 7)
-		mlx_put_image_to_window (vars->mlx, vars->win, vars->sprite->piece, 1820, 980);
-	if (vars->score != 4 && vars->score != 5 && vars->score != 6 && vars->score != 7)
-		mlx_put_image_to_window (vars->mlx, vars->win, vars->sprite->piece, 1820, 0);
-}
+	int	i;
 
-void	ft_loot(t_vars *vars)
-{
-	if (vars->score == 0 || vars->score == 2 ||
-	vars->score == 4 || vars->score == 6)
+	i = 0;
+	if (game->score == 0)
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->sprite->house, game->x_exit * 120, game->y_exit * 120);
+	else
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->sprite->font, game->x_exit * 120, game->y_exit * 120);
+	while (game->coin[i] != 0)
 	{
-		if ((vars->x_player >= 300 && vars->y_player >= 300) &&
-		(vars->x_player <= 700 && vars->y_player <= 700))
-			vars->score += 1;
-	}
-	if (vars->score == 0 || vars->score == 1 ||
-	vars->score == 4 || vars->score == 5)
-	{
-		if ((vars->x_player >= 1420 && vars->y_player >= 680))
-			vars->score += 2;
-	}
-	if (vars->score == 0 || vars->score == 1 ||
-	vars->score == 2 || vars->score == 3)
-	{
-		if ((vars->x_player >= 1620 && vars->y_player >= 0) && (vars->y_player <= 200))
-			vars->score += 4;
+		if (game->coin[i][2] && (game->coin[i][1] == game->x_player
+			&& game->coin[i][0] == game->y_player))
+		{
+			game->score++;
+			game->coin[i][2] = 0;
+		}
+		if (game->coin[i][2])
+			mlx_put_image_to_window(game->mlx, game->win, game->sprite->coin,
+				game->coin[i][1] * 120, game->coin[i][0] * 120);
+		else
+			mlx_put_image_to_window(game->mlx, game->win, game->sprite->font,
+				game->coin[i][1] * 120, game->coin[i][0] * 120);
+		i++;
 	}
 }
 
-void	ft_endgame()
+void	ft_put_font(t_game *game)
 {
-    exit(0);
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->height)
+	{
+		j = 0;
+		while (j < game->width)
+		{
+			if ((game->map[i][j] == 'S' || game->map[i][j] == '0')
+				&& (i != game->y_player || j != game->x_player))
+				mlx_put_image_to_window(game->mlx, game->win,
+					game->sprite->font, j * 120, i * 120);
+			else if (game->map[i][j] == '1')
+				mlx_put_image_to_window(game->mlx, game->win,
+					game->sprite->wall, j * 120, i * 120);
+			j++;
+		}
+		i++;
+	}
 }
 
-int	render_next_frame(t_vars *vars)
+int	render_next_frame(t_game *game)
 {
-	vars->img->img = ft_memcpy(vars->img->img, vars->sprite->map, 10);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
-	ft_loot(vars);
-	ft_spriter(vars);
-	if (vars->score == 7 && (vars->x_player <= 200 && vars->y_player <= 200))
-		ft_endgame();
-	return(0);
+	if (game->score == 1)
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->sprite->end_screen, 0, 0);
+	else
+	{
+		ft_put_font(game);
+		ft_scorer(game);
+		mlx_put_image_to_window (game->mlx, game->win, game->sprite->shrek,
+			game->x_player * 120, game->y_player * 120);
+	}
+	return (0);
 }

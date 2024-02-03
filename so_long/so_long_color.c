@@ -12,7 +12,8 @@
 
 #include "so_long.h"
 
-int	create_trgb1(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
+int	create_trgb1(unsigned char t, unsigned char r,
+unsigned char g, unsigned char b)
 {
 	return (*(int *)(unsigned char [4]){b, g, r, t});
 }
@@ -35,34 +36,6 @@ int	get_g1(int trgb)
 int	get_b1(int trgb)
 {
 	return (trgb & 0xFF);
-}
-
-int add_shade(double shade, int color)
-{
-    int t;
-    int r;
-    int g;
-    int b;
-
-    t = get_t1(color);
-    r = get_r1(color) * shade;
-    g = get_g1(color) * shade;
-    b = get_b1(color) * shade;
-    return (create_trgb1(t, r, g, b));
-}
-
-int get_opposite(int color)
-{
-    int t;
-    int r;
-    int g;
-    int b;
-
-    t = get_t1(color);
-    r = 255 - get_r1(color);
-    g = 255 - get_g1(color);
-    b = 255 - get_b1(color);
-    return (create_trgb1(t, r, g, b));
 }
 
 /*void	test(t_vars *vars)

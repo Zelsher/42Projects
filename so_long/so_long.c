@@ -12,51 +12,67 @@
 
 #include "so_long.h"
 
-int	ft_free(t_vars *vars)
+void	ft_free_map(char **map)
 {
-	(void)vars;
-	return (0);
+	int	i;
+
+	i = 0;
+	if (map)
+	{
+		while (map[i])
+		{
+			free(map[i]);
+			i++;
+		}
+		free(map);
+	}
 }
 
-void	ft_setup_vars(t_vars *vars, void *mlx, void *mlx_win)
+void	ft_free_coin(t_game *game)
 {
-	char	*file;
-	int		width;
-	int		height;
+	int	i;
 
-	vars->img->img = mlx_new_image(mlx, IMAGE_WIDTH, IMAGE_HEIGHT);
-	vars->img->addr = mlx_get_data_addr(vars->img->img, &vars->img->bits_per_pixel, &vars->img->line_length, &vars->img->endian);
-	vars->mlx = mlx;
-	vars->win = mlx_win;
-	vars->x_player = 0;
-	vars->y_player = 0;
-	vars->moove = 0;
-	vars->score = 0;
-	file = "assets/font.xpm";
-	vars->sprite->map = mlx_xpm_file_to_image(vars->mlx, file, &width, &height);
-	file = "assets/shrek.xpm";
-	vars->sprite->shrek = mlx_xpm_file_to_image(vars->mlx, file, &width, &height);
-	file = "assets/piece.xpm";
-	vars->sprite->piece = mlx_xpm_file_to_image(vars->mlx, file, &width, &height);
-	file = "assets/alban.xpm";
-	vars->sprite->house = mlx_xpm_file_to_image(vars->mlx, file, &width, &height);
+	i = 0;
+	while (game->coin[i])
+	{
+		free(game->coin[i]);
+		i++;
+	}
+	free(game->coin);
 }
 
-int    so_long(void *mlx, void *mlx_win)
+/*0 pour game, 1 pour map, 2 coin, 3 pour mlx, 4 pour win, 5 pour sprite*/
+void	ft_free(t_game *game, int to_free, int return_value)
 {
-	t_vars	*vars;
-	vars = malloc(sizeof(t_vars));
-	if (!vars)
-		return (1);
-	vars->img = malloc(sizeof(t_data));
-	if (!vars->img)
-		return (ft_free(vars));
-	vars->sprite = malloc(sizeof(t_sprite));
-	if (!vars->sprite)
-		return (ft_free(vars));
-	ft_setup_vars(vars, mlx, mlx_win);
-	ft_setup_hook(vars);
-	mlx_loop_hook(mlx, render_next_frame, vars);
-	mlx_loop(mlx);
+	if (to_free >= 1)
+		ft_free_map(game->map);
+	if (to_free >= 2)
+		ft_free_coin(game);
+	if (to_free >= 4)
+		mlx_destroy_window(game->mlx, game->win);
+	if (to_free == 5)
+	{
+		mlx_destroy_image(game->mlx, game->sprite->wall);
+		mlx_destroy_image(game->mlx, game->sprite->coin);
+		mlx_destroy_image(game->mlx, game->sprite->end_screen);
+		mlx_destroy_image(game->mlx, game->sprite->font);
+		mlx_destroy_image(game->mlx, game->sprite->house);
+		mlx_destroy_image(game->mlx, game->sprite->shrek);
+		free(game->sprite);
+	}
+	if (to_free >= 3)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	ft_printf("Fermé par %d, code d'erreur : %d\n", to_free, return_value);
+	exit(return_value);
+}
+
+int	so_long(t_game *game)
+{
+	ft_setup_hook(game);
+	mlx_loop_hook(game->mlx, render_next_frame, game);
+	mlx_loop(game->mlx);
 	return (0);
 }

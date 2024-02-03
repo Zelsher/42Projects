@@ -12,32 +12,40 @@
 
 #include "so_long.h"
 
-void	my_mlx_pixelput(t_data *data, int x, int y, int color)
+int	main(int argc, char **argv)
 {
-	char	*dst;
+	t_game	game;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (argc != 2)
+		return (0);
+	ft_map_filler(argv[1], &game);
+	if (!ft_map_checker(&game))
+	{
+		ft_printf("Erreur de map\n");
+		ft_free(&game, 1, 1);
+	}
+	ft_game_init(&game, 0, 0);
+	if (!ft_parsing_check(&game))
+		ft_free(&game, 5, 1);
+	so_long(&game);
+	return (0);
 }
 
-int main(void)
+/*
+void	ft_(char **map)
 {
-	void	*mlx;
-	void	*mlx_win;
+	int	y;
+	int	x;
 
-	mlx = mlx_init();
-	if (!mlx)
-        return (MLX_ERROR);
-	mlx_win = mlx_new_window(mlx, IMAGE_WIDTH, IMAGE_HEIGHT, "so_long");
-	if (!mlx_win)
-    {
-		mlx_destroy_display(mlx);
-		free(mlx);
-        free(mlx_win);
-        return (MLX_ERROR);
-    }
-	so_long(mlx, mlx_win);
-	mlx_destroy_window(mlx, mlx_win);
-	mlx_destroy_display(mlx);
-	free(mlx);
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			x++;
+		}
+		y++;
+	}
 }
+*/
