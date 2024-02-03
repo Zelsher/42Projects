@@ -74,28 +74,53 @@ int	ft_path_verificator(char **map)
 	return (1);
 }
 
-void	ft_fill_path(char **map, int y, int x)
+t_Point	new_point(int y, int x)
 {
-	map[y][x] = 'X';
-	if (map[y][x + 1] == '0' || map[y][x + 1] == 'C' || map[y][x + 1] == 'E')
-		ft_fill_path(map, y, x + 1);
-	if (map[y][x - 1] == '0' || map[y][x - 1] == 'C' || map[y][x - 1] == 'E')
-		ft_fill_path(map, y, x - 1);
-	if (map[y + 1][x] == '0' || map[y + 1][x] == 'C' || map[y + 1][x] == 'E')
-		ft_fill_path(map, y + 1, x);
-	if (map[y - 1][x] == '0' || map[y - 1][x] == 'C' || map[y - 1][x] == 'E')
-		ft_fill_path(map, y - 1, x);
+	t_Point	a;
+
+	a.col = x;
+	a.row = y;
+	return (a);
+}
+
+void	ft_fill_path(char **map, int y, int x, t_Point *stack)
+{
+	t_Point	current;
+	int		top;
+
+	top = 0;
+	stack[top] = new_point(y, x);
+	while (top >= 0)
+	{
+		current = stack[top--];
+		y = current.row;
+		x = current.col;
+		map[y][x] = 'X';
+		ft_printf("test1 : %dx%d\n", y, x);
+		if (map[y][x + 1] != '1' && map[y][x + 1] != 'X')
+			stack[++top] = new_point(y, x + 1);
+		if (map[y][x - 1] != '1' && map[y][x - 1] != 'X')
+			stack[++top] = new_point(y, x - 1);
+		if (map[y + 1][x] != '1' && map[y + 1][x] != 'X')
+			stack[++top] = new_point(y + 1, x);
+		if (map[y - 1][x] != '1' && map[y - 1][x] != 'X')
+			stack[++top] = new_point(y - 1, x);
+		ft_printf("test2\n");
+	}
+	free(stack);
 }
 
 int	ft_parsing_check(t_game *game)
 {
 	char	**map;
+	t_Point	*stack;
 
 	map = ft_map_copy(game, 0, 0);
 	if (!map)
 		ft_free(game, 1, 1);
 	ft_print_map(map);
-	ft_fill_path(map, game->y_player, game->x_player);
+	stack = (t_Point *)malloc(sizeof(t_Point) * game->height * game->width);
+	ft_fill_path(map, game->y_player, game->x_player, stack);
 	ft_print_map(map);
 	if (!ft_path_verificator(map))
 	{

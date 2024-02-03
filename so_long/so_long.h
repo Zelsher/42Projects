@@ -62,6 +62,12 @@ typedef struct s_game
 	t_data		*img;
 }				t_game;
 
+typedef struct s_point
+{
+	int	row;
+	int	col;
+}			t_Point;
+
 int		create_trgb1(unsigned char t, unsigned char r, unsigned char g,
 			unsigned char b);
 int		get_t1(int trgb);

@@ -50,7 +50,7 @@ int	ft_check_char_rectangle(char **map, char c)
 	while (map[y])
 	{
 		x = 0;
-		while (map[y][x] != '\n')
+		while (map[y][x] != '\n' && map[y][x] != 0)
 		{
 			if (map[y][x] == c)
 				count++;
@@ -61,7 +61,7 @@ int	ft_check_char_rectangle(char **map, char c)
 		}
 		y++;
 	}
-	if (x < y)
+	if (x == y)
 		return (0);
 	return (count);
 }
