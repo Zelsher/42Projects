@@ -52,7 +52,7 @@ void	ft_put_font(t_game *game)
 		j = 0;
 		while (j < game->width)
 		{
-			if ((game->map[i][j] == 'S' || game->map[i][j] == '0')
+			if ((game->map[i][j] == 'P' || game->map[i][j] == '0')
 				&& (i != game->y_player || j != game->x_player))
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->sprite->font, j * 120, i * 120);
@@ -68,8 +68,7 @@ void	ft_put_font(t_game *game)
 int	render_next_frame(t_game *game)
 {
 	if (game->score == 1)
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->sprite->end_screen, 0, 0);
+		ft_free(game, 5, 0);
 	else
 	{
 		ft_put_font(game);

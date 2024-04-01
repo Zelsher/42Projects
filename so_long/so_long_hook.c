@@ -20,7 +20,7 @@ int	close_win(t_game *game)
 
 int	keybind(int keycode, t_game *game)
 {
-	ft_printf("Keypressed : %d\n", keycode);
+	//ft_printf("Keypressed : %d\n", keycode);
 	if (keycode == 65307)
 		close_win(game);
 	if ((game->score != 8) && (keycode == 115 || keycode == 119
@@ -37,17 +37,9 @@ int	mouse_hook(int keycode, t_game *game)
 	return (0);
 }
 
-int	mouse_moove(int x, int y, t_game *game)
-{
-	ft_printf("PLACE : X=%d | Y=%d\n", x, y);
-	(void)game;
-	return (0);
-}
-
 void	ft_setup_hook(t_game *game)
 {
 	mlx_hook(game->win, 2, 1L << 0, keybind, game);
 	mlx_hook(game->win, 17, 1L << 0, close_win, game);
 	mlx_mouse_hook(game->win, mouse_hook, game);
-	mlx_hook(game->win, 6, 1L << 6, mouse_moove, game);
 }

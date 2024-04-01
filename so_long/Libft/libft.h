@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
@@ -50,7 +51,7 @@ int				ft_isalnum(int c);
 int				ft_iswspace(char c);
 int				ft_isminorplus(char c);
 int				ft_power(int number, int power);
-int   			ft_nbrlen(long long int num);
+int				ft_nbrlen(long long int num);
 long long int	ft_nbr_reducer(long long int nbr, int digit);
 long long int	ft_nbr_max_pos(long long int nbr);
 size_t			ft_strlen(const char *str);
@@ -113,9 +114,8 @@ char			*get_next_line(int fd);
 
 /*random*/
 
-#include <fcntl.h>
 int				ft_random_seed(long long int seed);
-long long int   ft_random(int seed, long long int max, int sign);
+long long int	ft_random(int seed, long long int max, int sign);
 /*len : la longeur du nombre, signe : boolean pour activer ou non les signes*/
 
 #endif

@@ -12,6 +12,20 @@
 
 #include "so_long.h"
 
+/*
+void	ft_print_map(char **map)
+{
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		ft_printf("%s", map[y]);
+		y++;
+	}
+	ft_printf("\n\n");
+}
+*/
 void	ft_free_map(char **map)
 {
 	int	i;
@@ -65,7 +79,7 @@ void	ft_free(t_game *game, int to_free, int return_value)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	ft_printf("Fermé par %d, code d'erreur : %d\n", to_free, return_value);
+	ft_printf("Closed by %d, Error code : %d\n", to_free, return_value);
 	exit(return_value);
 }
 

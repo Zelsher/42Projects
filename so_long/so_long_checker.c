@@ -55,7 +55,7 @@ int	ft_check_char_rectangle(char **map, char c)
 			if (map[y][x] == c)
 				count++;
 			if (map[y][x] != '1' && map[y][x] != '0' &&
-			map[y][x] != 'C' && map[y][x] != 'S' && map[y][x] != 'E')
+			map[y][x] != 'C' && map[y][x] != 'P' && map[y][x] != 'E')
 				return (0);
 			x++;
 		}
@@ -74,7 +74,7 @@ int	ft_map_checker(t_game *game)
 		return (0);
 	if (ft_check_char_rectangle(game->map, 'E') != 1)
 		return (0);
-	if (ft_check_char_rectangle(game->map, 'S') != 1)
+	if (ft_check_char_rectangle(game->map, 'P') != 1)
 		return (0);
 	if (!ft_check_sides(game->map))
 		return (0);

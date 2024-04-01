@@ -1,64 +1,57 @@
-EXECUTABLE_PUSH_SWAP = push_swap
-EXECUTABLE_CHECKER = checker
-SRC_PUSH_SWAP = $(wildcard *.c)
-SRC_CHECKER = $(wildcard checker_files/*.c)
-OBJ_DIR_PUSH_SWAP = obj
-OBJ_DIR_CHECKER = checker_files/obj
-OBJ_PUSH_SWAP = $(addprefix $(OBJ_DIR_PUSH_SWAP)/, $(SRC_PUSH_SWAP:.c=.o))
-OBJ_CHECKER = $(addprefix $(OBJ_DIR_CHECKER)/, $(notdir $(SRC_CHECKER:.c=.o)))
-LIBFT_DIR = Libft
-LIBFT = $(LIBFT_DIR)/libft.a
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I$(LIBFT_DIR)/includes
+NAME			= push_swap
 
-ARGS = 4 1 2
-all: $(OBJ_DIR_PUSH_SWAP) $(OBJ_DIR_CHECKER) $(EXECUTABLE_PUSH_SWAP) $(EXECUTABLE_CHECKER)
+INC				= inc/
+SRC_DIR			= src/
+OBJ_DIR			= obj/
+LIBFT			= Libft/libft.a
 
-$(OBJ_DIR_PUSH_SWAP):
-	mkdir -p $(OBJ_DIR_PUSH_SWAP)
+CC				= cc
+CFLAGS			= -Wall -Wextra -Werror -g -I $(INC)
+RM				= rm -f
 
-$(OBJ_DIR_CHECKER):
-	mkdir -p $(OBJ_DIR_CHECKER)
+SRC				=	$(SRC_DIR)stack_moover.c \
+					$(SRC_DIR)stack_util.c \
+					$(SRC_DIR)ft_radix.c \
+					$(SRC_DIR)ft_resolver.c \
+					$(SRC_DIR)ft_easy_solver.c \
+					$(SRC_DIR)push_swap.c \
+					$(SRC_DIR)main.c 
 
-$(EXECUTABLE_PUSH_SWAP): $(OBJ_PUSH_SWAP)
-	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXECUTABLE_PUSH_SWAP) $(OBJ_PUSH_SWAP) $(LIBFT)
+OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
-$(EXECUTABLE_CHECKER): $(OBJ_CHECKER) $(OBJ_DIR_PUSH_SWAP)/stack_util.o
-	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXECUTABLE_CHECKER) $(OBJ_CHECKER) $(OBJ_DIR_PUSH_SWAP)/stack_util.o $(LIBFT)
+all: 			$(NAME)
 
-$(OBJ_DIR_PUSH_SWAP)/%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+bonus:			$(NAME)
 
-$(OBJ_DIR_PUSH_SWAP)/stack_util.o: stack_util.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+run:
+				n./checker_linux $(ARG)
 
-$(OBJ_DIR_CHECKER)/%.o: checker/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-	
-$(OBJ_DIR_CHECKER)/%.o: checker_files/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(NAME): 		$(OBJ) $(LIBFT) $(INC)
+				@echo $(G)Compiling [$(SRC)]$(X) 
+				@$(CC) -o $(NAME) $(OBJ) $(LIBFT)
+				@echo $(G)Compiling [$(NAME)]$(X) 
 
-$(OBJ_DIR_CHECKER)/%.o: checker/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(LIBFT)	:
+				@echo $(G)Compiling [LIBFT]$(X) 
+				@make -s -C Libft
+
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+				@mkdir -p $(@D)
+				@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR_PUSH_SWAP) $(OBJ_DIR_CHECKER)
+				@echo $(G)delete [$(OBJ)]$(X) 
+				@$(RM) -r $(OBJ_DIR)
+				@make clean -s -C Libft
 
-fclean: clean
-	rm -f $(EXECUTABLE_PUSH_SWAP) $(EXECUTABLE_CHECKER)
+fclean: 		clean
+				@echo $(G)delete [$(NAME)]$(X)	
+				@$(RM) $(NAME)
+				@echo $(G)delete [LIBFT]$(X)
+				@make fclean -s -C Libft
 
-re: fclean all
+re: 			fclean all
 
-run_push_swap: $(EXECUTABLE_PUSH_SWAP)
-	./$(EXECUTABLE_PUSH_SWAP) $(ARGS)
+.PHONY: 		all clean fclean re
 
-run_checker: $(EXECUTABLE_CHECKER)
-	./$(EXECUTABLE_CHECKER) $(ARGS)
-
-run_all: $(EXECUTABLE_CHECKER) $(EXECUTABLE_PUSH_SWAP)
-	./$(EXECUTABLE_PUSH_SWAP) $(ARGS) | ./$(EXECUTABLE_CHECKER) $(ARGS)
-
-.PHONY: all clean fclean re run_push_swap run_checker run_all
+#432 95 4 12 3456 9546 5 32478 32 4509 87 38 21 3 2113 73 324 9285 3719 234 6 1 92 96525 16 19 37 7 44 65 43 61 8845 4555 55 2 1102 405

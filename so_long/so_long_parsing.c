@@ -12,19 +12,6 @@
 
 #include "so_long.h"
 
-void	ft_print_map(char **map)
-{
-	int	y;
-
-	y = 0;
-	while (map[y])
-	{
-		ft_printf("%s", map[y]);
-		y++;
-	}
-	ft_printf("\n\n");
-}
-
 char	**ft_map_copy(t_game *game, int y, int x)
 {
 	char	**map;
@@ -32,17 +19,16 @@ char	**ft_map_copy(t_game *game, int y, int x)
 	y = 0;
 	map = malloc(sizeof(char *) * (game->height + 1));
 	if (!map)
-		ft_free(game, 1, 1);
+		ft_free(game, 5, 1);
 	while (game->map[y])
 	{
 		x = 0;
 		map[y] = malloc(sizeof(char) * (game->width + 2));
+		if (!map[y])
+			return (ft_free_map(map), ft_free(game, 5, 1), map);
 		map[y + 1] = NULL;
 		if (!map[y])
-		{
-			ft_free_map(map);
-			ft_free(game, 1, 1);
-		}
+			return (ft_free_map(map), ft_free(game, 5, 1), map);
 		while (game->map[y][x])
 		{
 			map[y][x] = game->map[y][x];
@@ -96,7 +82,6 @@ void	ft_fill_path(char **map, int y, int x, t_Point *stack)
 		y = current.row;
 		x = current.col;
 		map[y][x] = 'X';
-		ft_printf("test1 : %dx%d\n", y, x);
 		if (map[y][x + 1] != '1' && map[y][x + 1] != 'X')
 			stack[++top] = new_point(y, x + 1);
 		if (map[y][x - 1] != '1' && map[y][x - 1] != 'X')
@@ -105,7 +90,6 @@ void	ft_fill_path(char **map, int y, int x, t_Point *stack)
 			stack[++top] = new_point(y + 1, x);
 		if (map[y - 1][x] != '1' && map[y - 1][x] != 'X')
 			stack[++top] = new_point(y - 1, x);
-		ft_printf("test2\n");
 	}
 	free(stack);
 }
@@ -117,15 +101,16 @@ int	ft_parsing_check(t_game *game)
 
 	map = ft_map_copy(game, 0, 0);
 	if (!map)
-		ft_free(game, 1, 1);
-	ft_print_map(map);
+		ft_free(game, 5, 1);
 	stack = (t_Point *)malloc(sizeof(t_Point) * game->height * game->width);
+	if (!stack)
+		return (ft_free_map(map), ft_free(game, 5, 1), 1);
 	ft_fill_path(map, game->y_player, game->x_player, stack);
-	ft_print_map(map);
 	if (!ft_path_verificator(map))
 	{
+		ft_printf("Error map\n");
 		ft_free_map(map);
-		ft_free(game, 1, 1);
+		ft_free(game, 5, 1);
 	}
 	ft_free_map(map);
 	return (1);

@@ -18,6 +18,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (0);
+	if (ft_strcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber"))
+		return (0);
 	ft_map_filler(argv[1], &game);
 	if (!ft_map_checker(&game))
 	{
@@ -30,22 +32,3 @@ int	main(int argc, char **argv)
 	so_long(&game);
 	return (0);
 }
-
-/*
-void	ft_(char **map)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			x++;
-		}
-		y++;
-	}
-}
-*/

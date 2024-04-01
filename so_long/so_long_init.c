@@ -14,7 +14,7 @@
 
 void	ft_helper(t_game *game, int x, int y)
 {
-	if (game->map[y][x] == 'S')
+	if (game->map[y][x] == 'P')
 	{
 		game->x_player = x;
 		game->y_player = y;

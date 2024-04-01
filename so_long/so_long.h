@@ -12,7 +12,6 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define MLX_ERROR 1
 # define FONT "assets/font.xpm"
 # define SHREK "assets/shrek.xpm"
 # define COIN  "assets/coin.xpm"
