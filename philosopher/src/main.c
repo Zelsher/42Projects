@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:22:01 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/04/29 02:51:14 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:57:41 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	FILL_Watcher(int argc, char **argv, t_watcher *watcher)
 		exit(0);
 	pthread_mutex_init(&(watcher->print), NULL);
 	pthread_mutex_init(&(watcher->access), NULL);
-	printf("Start time : %ld\n%d Philos\n%d Temps pour mourir\n%d Temps pour manger\n%d Temps pour dormir\n", watcher->start_time.tv_usec, watcher->n_philo, watcher->die_time, watcher->eat_time, watcher->sleep_time);
+	//printf("Start time : %ld\n%d Philos\n%d Temps pour mourir\n%d Temps pour manger\n%d Temps pour dormir\n", watcher->start_time.tv_usec, watcher->n_philo, watcher->die_time, watcher->eat_time, watcher->sleep_time);
 }
 
 int	CREATE_Philo(t_watcher *watcher, int i)

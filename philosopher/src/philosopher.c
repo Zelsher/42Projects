@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:31:50 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/04/29 02:50:35 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:58:59 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	END_Threads(t_philo *philo)
 {
 	int	i;
 	
+	i = 0;
 	pthread_mutex_lock(&philo->watcher->access);
 	while (i < philo->watcher->n_philo)
 	{
