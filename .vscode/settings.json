@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stddef.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "mlx.h": "c",
+        "unistd.h": "c"
     }
 }

@@ -49,6 +49,7 @@ int				ft_isalpha(int c);
 int				ft_isalnum(int c);
 int				ft_iswspace(char c);
 int				ft_isminorplus(char c);
+int				is_in(char c, char *str);
 int				ft_power(int number, int power);
 int   			ft_nbrlen(long long int num);
 long long int	ft_nbr_reducer(long long int nbr, int digit);
@@ -66,7 +67,7 @@ char			*ft_substr(const char *str, unsigned int start, size_t len);
 char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strtrim(const char *s1, const char *set);
 char			**ft_split(const char *str, char c);
-char			**ft_free_double_tab(char **str);
+void			**ft_free_double_tab(char **str);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 

@@ -6,7 +6,7 @@
 /*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:56 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/04/29 02:47:21 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:12:14 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_watcher
 	int		eat_time;
 	int		sleep_time;
 	int		n_eat;
+	int		n_time;
 	pthread_mutex_t		print;
 	pthread_mutex_t		access;
 	struct timeval	start_time;
@@ -50,6 +51,9 @@ typedef struct s_watcher
 
 int		is_num(char c);
 
+void	PRINT_Philo(t_philo *philo, char *action);
+long int		GET_Time_Philo(t_philo *philo);
+void	WAIT(int wait_time, t_philo *philo);
 void	FREE_philo(t_watcher *watcher);
 void	*LIFE(void *data);
 int		PHILOSOPHERS(t_watcher *watcher);

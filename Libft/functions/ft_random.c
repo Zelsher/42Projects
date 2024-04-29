@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <time.h>
+#include <stdio.h>
 
 static long long int	ft_seeder(char *time)
 {
@@ -66,14 +68,12 @@ int	ft_random_seed(long long int seed)
 	int		fd;
 	char	*time;
 
-	if (seed < 0)
-		seed *= -1;
 	if (seed == 0)
 	{
 		fd = open("/proc/uptime", O_RDONLY);
 		if (fd == 0)
 		{
-			ft_printf("Erreur ft_random, verifier /proc/uptime");
+			printf("Erreur ft_random, verifier /proc/uptime");
 			return (0);
 		}
 		time = get_next_line(fd);
@@ -88,8 +88,6 @@ int	ft_random_seed(long long int seed)
 	}
 	return (seed);
 }
-
-#include <stdio.h>
 
 long long int	ft_randomizer(long long int seed, long long int num, long long int max, int sign)
 {
@@ -116,16 +114,21 @@ long long int	ft_randomizer(long long int seed, long long int num, long long int
 	return (num);
 }
 
-long long int	ft_random(int seed, long long int max, int sign)
+long long int	RANDOM(long long int max, int sign)
 {
-	long long int	num;
-	int				len;
+	static long long int		seed;
+	long long int				num;
+	int							len;
 
 	if (max == 0)
 		return (0);
+	seed = ft_random_seed(seed);
+	printf("%lld | ", seed);
 	len = ft_nbrlen(max);
 	num = (1664525 * seed + 1013904223) % 4294967296;
 	num = ft_nbr_reducer(num, len);
+	printf("reduced : %lld | ", num);
+	return (num);
 	num = ft_randomizer(seed , num, max, sign);
 	return (num);
 }

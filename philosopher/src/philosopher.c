@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:31:50 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/04/29 16:58:59 by elyasboumaz      ###   ########.fr       */
+/*   Updated: 2024/04/29 23:12:42 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
-
-void	WAIT(int wait_time, t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	//printf("%d Attend %d ms\n", philo->id, wait_time);
-	while (i < wait_time * 1000)
-	{
-		usleep(50);
-		usleep(50);
-		i += 100;
-	}
-	(void)philo;
-}
 
 void	END_Threads(t_philo *philo)
 {
@@ -48,27 +33,27 @@ void	TAKE_Fork(t_philo *philo)
 	//	END_Threads(philo);
 	//philo->last_eat = philo->time.tv_usec;
 	pthread_mutex_lock(philo->r_fork);
-	printf("%d has taken a fork\n", philo->id);
+	PRINT_Philo(philo, " has taken a fork");
 	pthread_mutex_lock(&philo->l_fork);
-	printf("%d has taken a fork\n", philo->id);
+	PRINT_Philo(philo, " has taken a fork");
 }
 
 void	EAT(t_philo *philo)
 {
-	printf("%d is eating\n", philo->id);
-	WAIT(philo->watcher->eat_time, philo);
+	PRINT_Philo(philo, " is eating");
 	pthread_mutex_lock(&philo->eat);
 	gettimeofday(&philo->time, NULL);
 	philo->last_eat = philo->time.tv_usec;
 	pthread_mutex_unlock(&philo->eat);
+	WAIT(philo->watcher->eat_time, philo);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->l_fork);
-	printf("%d Let fork\n", philo->id);
 }
 
 
 void	SLEEP(t_philo *philo)
 {
+	PRINT_Philo(philo, " is sleeping");
 	WAIT(philo->watcher->sleep_time, philo);
 }
 
@@ -81,8 +66,10 @@ void	*LIFE(void *data)
 	philo = ((t_philo *)data);
 	i = 0;
 	if (philo->id % 2 == 0)
-		usleep(500);
-	printf("Philo %d intialise\n", philo->id);
+		usleep(100);
+	//printf("Philo %d intialise\n", philo->id);
+	if (philo->id == 1 && gettimeofday(&philo->watcher->start_time, NULL))
+		exit(0);
 	while (philo->id && (philo->watcher->n_eat == 0 || philo->watcher->n_eat > i))
 	{
 		TAKE_Fork(philo);

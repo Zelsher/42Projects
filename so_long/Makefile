@@ -6,14 +6,14 @@
 #    By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/29 18:06:01 by eboumaza          #+#    #+#              #
-#    Updated: 2023/08/29 18:06:01 by eboumaza         ###   ########.fr        #
+#    Updated: 2024/04/22 20:24:45 by eboumaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11 
-LIB = Libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a
+LDFLAGS = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11
+LIB = Libft/libft.a minilibx-linux/libmlx.a
 OBJ_DIR = obj
 SRC = so_long.c \
       main.c \
