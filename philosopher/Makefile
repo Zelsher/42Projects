@@ -11,7 +11,9 @@ RM				= rm -f
 
 SRC				=	$(SRC_DIR)main.c \
 					$(SRC_DIR)philosopher.c \
-					$(SRC_DIR)philosopher_utils.c \
+					$(SRC_DIR)death_checker.c \
+					$(SRC_DIR)philo_utils.c \
+					$(SRC_DIR)philo_utils2.c \
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

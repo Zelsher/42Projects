@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_dead.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:46:21 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:15 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:06:07 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ void	end_prog(t_program *prog)
 	pthread_mutex_destroy(&prog->write_lock);
 	pthread_mutex_destroy(&prog->dead_lock);
 	pthread_mutex_destroy(&prog->meal_lock);
-}
-
-size_t	get_current_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	all_eat(t_philo *philos)
