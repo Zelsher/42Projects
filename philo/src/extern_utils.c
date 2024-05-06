@@ -6,7 +6,7 @@
 /*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:43:11 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:43:22 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:48:06 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * minus);
+}
+
+int	is_num(char c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

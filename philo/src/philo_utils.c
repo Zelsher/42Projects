@@ -6,7 +6,7 @@
 /*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:34:24 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:39:07 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:48:00 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ size_t	get_time_philo(void)
 		return (0);
 	}
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-int	is_num(char c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
 }
 
 int	verify_arg(int argc, char **argv)
