@@ -23,7 +23,7 @@ bonus:			$(NAME)
 
 $(NAME): 		$(OBJ) $(INC)
 				@echo $(G)Compiling [$(SRC)]$(X) 
-				@$(CC) -o $(NAME) $(OBJ) $(LIBFT)
+				@$(CC) -o $(NAME) $(OBJ)
 				@echo $(G)Compiling [$(NAME)]$(X) 
 
 
