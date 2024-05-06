@@ -49,7 +49,6 @@ void	sigusr_handler(int signum, siginfo_t *info, void *context)
 {
 	static t_data	data;
 
-	ft_printf("OUI");
 	if (!data.c_pid)
 		return (fill_data(&data, info->si_pid));
 	if (signum == SIGUSR2 && data.verif == 1)

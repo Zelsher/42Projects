@@ -76,7 +76,7 @@ int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
 
-	if (argc != 3 || !argv[1] || !argv[2])
+	if (argc != 3 || !argv[1] || !argv[2] || ft_atoi(argv[1]) <= 0)
 		return (1);
 	sa.sa_sigaction = sigusr_handler;
 	sigemptyset(&sa.sa_mask);
