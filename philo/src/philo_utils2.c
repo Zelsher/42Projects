@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_utils2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 13:39:12 by eboumaza          #+#    #+#             */
+/*   Updated: 2024/05/06 13:39:39 by eboumaza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philosopher.h"
 
-void	WAIT_Start(t_watcher *watcher)
+void	wait_start(t_watcher *watcher)
 {
 	while (1)
 	{
@@ -14,7 +26,7 @@ void	WAIT_Start(t_watcher *watcher)
 	}
 }
 
-void	WAIT_Start_Philo(t_philo *philo)
+void	wait_start_philo(t_philo *philo)
 {
 	while (1)
 	{
@@ -29,11 +41,11 @@ void	WAIT_Start_Philo(t_philo *philo)
 	}
 }
 
-void	WAIT(int wait_time)
+void	wait(int wait_time)
 {
 	size_t	start;
 
-	start = GET_Time_Philo();
-	while ((GET_Time_Philo() - start) < (size_t)wait_time)
+	start = get_time_philo();
+	while ((get_time_philo() - start) < (size_t)wait_time)
 		usleep(500);
 }

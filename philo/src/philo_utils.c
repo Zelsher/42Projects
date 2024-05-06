@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:34:24 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/04 21:04:06 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:39:07 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
 
-void	PRINT_Philo(t_philo *philo, char *action)
+void	print_philo(t_philo *philo, char *action)
 {
 	if (philo->watcher->dead == 1)
 		return ;
 	pthread_mutex_lock(&philo->watcher->print);
-	printf("%ld %d%s\n", GET_Time_Philo() - philo->watcher->start_time, philo->id, action);
+	printf("%ld %d%s\n", get_time_philo() - philo->watcher->start_time,
+		philo->id, action);
 	pthread_mutex_unlock(&philo->watcher->print);
 }
 
-size_t	GET_Time_Philo()
+size_t	get_time_philo(void)
 {
 	struct timeval	time;
 
@@ -37,13 +38,13 @@ int	is_num(char c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);
-	return (0);	
+	return (0);
 }
 
 int	verify_arg(int argc, char **argv)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 1;

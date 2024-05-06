@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:22:01 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/05 21:35:25 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:43:09 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
 
-
-void	END_Philos(t_watcher *watcher)
+void	end_philos(t_watcher *watcher)
 {
 	int	i;
 
@@ -32,7 +31,7 @@ void	END_Philos(t_watcher *watcher)
 	return ;
 }
 
-void	FILL_Watcher(int argc, char **argv, t_watcher *watcher)
+void	fill_watcher(int argc, char **argv, t_watcher *watcher)
 {
 	if (argc < 5 || argc > 6 || !verify_arg(argc, argv))
 	{
@@ -46,8 +45,9 @@ void	FILL_Watcher(int argc, char **argv, t_watcher *watcher)
 	watcher->n_eat = 0;
 	if (argc == 6)
 		watcher->n_eat = ft_atoi(argv[5]);
-	if ((argc == 6 && !watcher->n_eat) || watcher->n_philo <= 0 
-		|| watcher->die_time < 0 || watcher->eat_time < 0 || watcher->eat_time < 0
+	if ((argc == 6 && !watcher->n_eat)
+		|| watcher->n_philo <= 0 || watcher->die_time < 0
+		|| watcher->eat_time < 0 || watcher->eat_time < 0
 		|| watcher->sleep_time < 0)
 	{
 		printf("Erreur d'arguments : %d\n", argc);
@@ -57,7 +57,7 @@ void	FILL_Watcher(int argc, char **argv, t_watcher *watcher)
 	watcher->dead = 0;
 }
 
-int	CREATE_Philo(t_watcher *watcher, int i)
+int	create_philo(t_watcher *watcher, int i)
 {
 	watcher->philos[i].id = i + 1;
 	watcher->philos[i].n_meal = 0;
@@ -70,11 +70,12 @@ int	CREATE_Philo(t_watcher *watcher, int i)
 		watcher->philos[i].r_fork = &watcher->philos[0].l_fork;
 	else
 		watcher->philos[i].r_fork = &watcher->philos[i + 1].l_fork;
-	pthread_create(&watcher->philos[i].thread, NULL, &LIFE, &watcher->philos[i]);
+	pthread_create(&watcher->philos[i].thread, NULL, &life,
+		&watcher->philos[i]);
 	return (1);
 }
 
-int	FILL_Philos(t_watcher *watcher)
+int	fill_philos(t_watcher *watcher)
 {
 	int	i;
 
@@ -82,13 +83,13 @@ int	FILL_Philos(t_watcher *watcher)
 	pthread_mutex_init(&watcher->print, NULL);
 	pthread_mutex_init(&(watcher->access), NULL);
 	pthread_mutex_init(&(watcher->m_start), NULL);
-	pthread_create(&watcher->death_thread, NULL, &DEATH, watcher);
+	pthread_create(&watcher->death_thread, NULL, &death, watcher);
 	while (i < watcher->n_philo)
 	{
-		CREATE_Philo(watcher, i);
+		create_philo(watcher, i);
 		i++;
 	}
-	watcher->start_time = GET_Time_Philo();
+	watcher->start_time = get_time_philo();
 	if (pthread_join(watcher->death_thread, NULL))
 		return (1);
 	i = 0;
@@ -105,13 +106,13 @@ int	main(int argc, char **argv)
 {
 	t_watcher	watcher;
 
-	FILL_Watcher(argc, argv, &watcher);
+	fill_watcher(argc, argv, &watcher);
 	watcher.philos = malloc(sizeof(t_philo) * watcher.n_philo);
 	if (!watcher.philos)
 		return (0);
-	if (FILL_Philos(&watcher))
+	if (fill_philos(&watcher))
 		printf("Erreur de Thread\n");
-	END_Philos(&watcher);
+	end_philos(&watcher);
 	return (1);
 }
 

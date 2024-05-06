@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:31:50 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/05 21:44:21 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:44:02 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
 
-void	TAKE_Fork(t_philo *philo)
+void	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	PRINT_Philo(philo, " has taken a fork");
+	print_philo(philo, " has taken a fork");
 	pthread_mutex_lock(&philo->l_fork);
-	PRINT_Philo(philo, " has taken a fork");
+	print_philo(philo, " has taken a fork");
 }
 
-void	EAT_SLEEP(t_philo *philo)
+void	eat_sleep(t_philo *philo)
 {
-	PRINT_Philo(philo, " is eating");
+	print_philo(philo, " is eating");
 	pthread_mutex_lock(&philo->eat);
 	philo->n_meal++;
-	philo->last_eat = GET_Time_Philo();
+	philo->last_eat = get_time_philo();
 	pthread_mutex_unlock(&philo->eat);
-	WAIT(philo->watcher->eat_time);
-	PRINT_Philo(philo, " is sleeping");
+	wait(philo->watcher->eat_time);
+	print_philo(philo, " is sleeping");
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->l_fork);
-	WAIT(philo->watcher->sleep_time);
+	wait(philo->watcher->sleep_time);
 }
 
-void	*LIFE(void *data)
+void	*life(void *data)
 {
 	t_philo	*philo;
 	int		i;
@@ -42,16 +42,15 @@ void	*LIFE(void *data)
 	philo = ((t_philo *)data);
 	i = 0;
 	pthread_mutex_lock(&philo->eat);
-	WAIT_Start_Philo(philo);
+	wait_start_philo(philo);
 	pthread_mutex_unlock(&philo->eat);
 	if (philo->id % 2 == 0)
 		usleep(100);
-	while (IS_Alive(philo, i))
+	while (is_alive(philo, i))
 	{
-		TAKE_Fork(philo);
-		EAT_SLEEP(philo);
+		take_fork(philo);
+		eat_sleep(philo);
 		i++;
 	}
-	//printf("%d a manger %d repas\n", philo->id, i);
 	return (NULL);
 }

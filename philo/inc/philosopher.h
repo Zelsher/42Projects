@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:56 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/05 21:33:01 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:43:32 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/time.h>
 # include <time.h>
 # include <pthread.h>
-# include "../Libft/libft.h"
 
 typedef struct s_philo
 {
@@ -38,7 +37,7 @@ typedef struct s_philo
 typedef struct s_watcher
 {
 	int				n_philo;
-	int			die_time;
+	int				die_time;
 	int				eat_time;
 	int				sleep_time;
 	int				n_eat;
@@ -53,16 +52,17 @@ typedef struct s_watcher
 }			t_watcher;
 
 int		is_num(char c);
+int		ft_atoi(const char *str);
 
-void	*DEATH(void *data);
+void	*death(void *data);
 
-int		IS_Alive(t_philo *philo, int lunch);
+int		is_alive(t_philo *philo, int lunch);
 int		verify_arg(int argc, char **argv);
-void	WAIT_Start(t_watcher *watcher);
-void	WAIT_Start_Philo(t_philo *philo);
-void	PRINT_Philo(t_philo *philo, char *action);
-size_t	GET_Time_Philo(void);
-void	WAIT(int wait_time);
-void	*LIFE(void *data);
+void	wait_start(t_watcher *watcher);
+void	wait_start_philo(t_philo *philo);
+void	print_philo(t_philo *philo, char *action);
+size_t	get_time_philo(void);
+void	wait(int wait_time);
+void	*life(void *data);
 
 #endif
