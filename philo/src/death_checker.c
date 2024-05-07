@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   death_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:33:30 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:44:23 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:17:52 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
 
-void	*decimate_philos(t_watcher *watcher)
+void	decimate_philos(t_watcher *watcher)
 {
 	pthread_mutex_lock(&watcher->access);
 	watcher->dead = 1;
 	pthread_mutex_unlock(&watcher->access);
-	return (NULL);
 }
 
 int	is_alive(t_philo *philo, int lunch)
@@ -73,9 +72,10 @@ void	*death(void *data)
 			if ((int)(get_time_philo() - watcher->philos[i].last_eat)
 				>= watcher->die_time)
 			{
-				print_philo(&watcher->philos[i], " Died");
+				decimate_philos(watcher);
+				print_philo(&watcher->philos[i], " died");
 				pthread_mutex_unlock(&watcher->philos[i].eat);
-				return (decimate_philos(watcher));
+				return (NULL);
 			}
 			pthread_mutex_unlock(&watcher->philos[i].eat);
 			i++;

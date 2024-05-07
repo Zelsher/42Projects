@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:56 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:43:32 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:31:20 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	wait_start(t_watcher *watcher);
 void	wait_start_philo(t_philo *philo);
 void	print_philo(t_philo *philo, char *action);
 size_t	get_time_philo(void);
-void	wait(int wait_time);
+void	waiter(int wait_time);
 void	*life(void *data);
 
 #endif

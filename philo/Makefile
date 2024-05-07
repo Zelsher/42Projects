@@ -5,7 +5,7 @@ SRC_DIR			= src/
 OBJ_DIR			= obj/
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -g3 -I $(INC)
+CFLAGS			= -Wall -Wextra -Werror -g3 -fsanitize=thread -I $(INC)
 RM				= rm -f
 
 SRC				=	$(SRC_DIR)main.c \
@@ -23,7 +23,7 @@ bonus:			$(NAME)
 
 $(NAME): 		$(OBJ) $(INC)
 				@echo $(G)Compiling [$(SRC)]$(X) 
-				@$(CC) -o $(NAME) $(OBJ)
+				@$(CC) -o $(NAME) $(OBJ) -fsanitize=thread
 				@echo $(G)Compiling [$(NAME)]$(X) 
 
 

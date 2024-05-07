@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:31:50 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:44:02 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:34:04 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void	eat_sleep(t_philo *philo)
 	philo->n_meal++;
 	philo->last_eat = get_time_philo();
 	pthread_mutex_unlock(&philo->eat);
-	wait(philo->watcher->eat_time);
+	waiter(philo->watcher->eat_time);
 	print_philo(philo, " is sleeping");
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->l_fork);
-	wait(philo->watcher->sleep_time);
+	waiter(philo->watcher->sleep_time);
+	print_philo(philo, " is thinking");
 }
 
 void	*life(void *data)
@@ -45,7 +46,7 @@ void	*life(void *data)
 	wait_start_philo(philo);
 	pthread_mutex_unlock(&philo->eat);
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(1000);
 	while (is_alive(philo, i))
 	{
 		take_fork(philo);

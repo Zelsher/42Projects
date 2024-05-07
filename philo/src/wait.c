@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils2.c                                     :+:      :+:    :+:   */
+/*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:39:12 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:39:39 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:31:13 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	wait_start_philo(t_philo *philo)
 	}
 }
 
-void	wait(int wait_time)
+void	waiter(int wait_time)
 {
 	size_t	start;
 

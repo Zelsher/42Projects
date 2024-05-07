@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:22:01 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 13:43:09 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:37:57 by elyasboumaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int	fill_philos(t_watcher *watcher)
 		create_philo(watcher, i);
 		i++;
 	}
+	pthread_mutex_lock(&watcher->m_start);
 	watcher->start_time = get_time_philo();
+	pthread_mutex_unlock(&watcher->m_start);
 	if (pthread_join(watcher->death_thread, NULL))
 		return (1);
 	i = 0;
@@ -107,6 +109,13 @@ int	main(int argc, char **argv)
 	t_watcher	watcher;
 
 	fill_watcher(argc, argv, &watcher);
+	if (watcher.n_philo == 1)
+	{
+		printf("0 1 has taken a fork\n");
+		waiter(watcher.die_time);
+		printf("%d 1 died\n", watcher.die_time);
+		return (0);
+	}
 	watcher.philos = malloc(sizeof(t_philo) * watcher.n_philo);
 	if (!watcher.philos)
 		return (0);
