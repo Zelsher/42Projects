@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:34:24 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 21:41:06 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:07:43 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	print_philo(t_philo *philo, char *action)
 {
 	pthread_mutex_lock(&philo->watcher->access);
 	if (philo->watcher->dead == 1)
+	{
+		pthread_mutex_unlock(&philo->watcher->access);
 		return ;
+	}
 	pthread_mutex_unlock(&philo->watcher->access);
 	pthread_mutex_lock(&philo->watcher->print);
 	printf("%ld %d%s\n", get_time_philo() - philo->watcher->start_time,

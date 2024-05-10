@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:31:50 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/07 11:34:04 by elyasboumaz      ###   ########.fr       */
+/*   Updated: 2024/05/10 16:01:56 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
-	print_philo(philo, " has taken a fork");
 	pthread_mutex_lock(&philo->l_fork);
+	print_philo(philo, " has taken a fork");
+	pthread_mutex_lock(philo->r_fork);
 	print_philo(philo, " has taken a fork");
 }
 
@@ -45,8 +45,15 @@ void	*life(void *data)
 	pthread_mutex_lock(&philo->eat);
 	wait_start_philo(philo);
 	pthread_mutex_unlock(&philo->eat);
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 || philo->id == philo->watcher->n_philo)
 		usleep(1000);
+	if (philo->watcher->n_philo == 1)
+	{
+		printf("0 1 has taken a fork\n");
+		waiter(philo->watcher->die_time);
+		printf("%d 1 died\n", philo->watcher->die_time);
+		return (0);
+	}
 	while (is_alive(philo, i))
 	{
 		take_fork(philo);

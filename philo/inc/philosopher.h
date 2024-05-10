@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elyasboumaza <elyasboumaza@student.42.f    +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:56 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/07 11:31:20 by elyasboumaz      ###   ########.fr       */
+/*   Updated: 2024/05/10 15:31:33 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

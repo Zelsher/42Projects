@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   death_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboumaza <eboumaza.trav@gmail.com>         +#+  +:+       +#+        */
+/*   By: eboumaza <eboumaza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:33:30 by eboumaza          #+#    #+#             */
-/*   Updated: 2024/05/06 21:17:52 by eboumaza         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:09:59 by eboumaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosopher.h"
 
-void	decimate_philos(t_watcher *watcher)
+void	decimate_philos(t_watcher *watcher, int id)
 {
 	pthread_mutex_lock(&watcher->access);
 	watcher->dead = 1;
 	pthread_mutex_unlock(&watcher->access);
+	pthread_mutex_lock(&watcher->print);
+	printf("%ld %d died\n", get_time_philo() - watcher->start_time, id);
+	pthread_mutex_unlock(&watcher->print);
 }
 
 int	is_alive(t_philo *philo, int lunch)
@@ -66,14 +69,13 @@ void	*death(void *data)
 		i = 0;
 		while (i + 1 < watcher->n_philo)
 		{
-			if (!finish_meal(watcher))
+			if (finish_meal(watcher))
 				return (NULL);
 			pthread_mutex_lock(&watcher->philos[i].eat);
 			if ((int)(get_time_philo() - watcher->philos[i].last_eat)
 				>= watcher->die_time)
 			{
-				decimate_philos(watcher);
-				print_philo(&watcher->philos[i], " died");
+				decimate_philos(watcher, watcher->philos[i].id);
 				pthread_mutex_unlock(&watcher->philos[i].eat);
 				return (NULL);
 			}
