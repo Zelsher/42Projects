@@ -33,5 +33,7 @@ int main(int argc, char **argv)
 {
     if (argc > 1)
         Megaphoner(argc, argv);
+    else
+        cout << "* LOUD AND UNBERABLE FEEDBACK NOISE *\n";
     return 0;
 }

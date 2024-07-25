@@ -26,13 +26,23 @@ class Zombie
 			name = new_name;
 			announce();
 		}
+		Zombie()
+		{
+		}
 		~Zombie()
 		{
 			cout << "Deconstructeur sur " << name << endl;
+		}
+
+		void	setName(string new_name)
+		{
+			name = new_name;
+			announce();
 		}
 };
 
 Zombie* newZombie(string name);
 void randomChump(string name);
+Zombie* zombieHorde(int N, std::string name);
 
 #endif

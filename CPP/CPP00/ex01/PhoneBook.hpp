@@ -12,6 +12,7 @@ class Contact
 {
 	private:
 		int		id;
+		int		exist;
 		string	name;
 		string	last_name;
 		string	nickname;
@@ -21,21 +22,21 @@ class Contact
 		Contact()
 		{
 			id = 0;
+			exist = 0;
 		}
 		int	EXIST()
 		{
-			if (id == 0)
+			if (exist == 0)
 				return 0;
 			return 1;
 		}
 
 		void	DISPLAY()
 		{   
-    // Affichage des informations du contact
     		cout << setw(10) << right << id << " | "
 			<< setw(10) << right << name.substr(0, 10) << " | "
-              << setw(10) << right << last_name.substr(0, 10) << " | "
-              << setw(10) << right << nickname.substr(0, 10) << endl;
+            << setw(10) << right << last_name.substr(0, 10) << " | "
+            << setw(10) << right << nickname.substr(0, 10) << endl;
 		}
 
 		void	PRINT()
@@ -48,8 +49,21 @@ class Contact
 				 << "darkest_secret : " << darkest_secret << endl << endl;
 		}
 
+
+		void	CLEAR_Info()
+		{
+			name.clear();
+			last_name.clear();
+			nickname.clear();
+			phone_nbr.clear();
+			darkest_secret.clear();
+		}
+
 		void	SET_Info(int new_id)
 		{
+			if (exist)
+				CLEAR_Info();
+			exist = 1;
 			id = new_id;
 			while (name.empty())
 			{
@@ -101,15 +115,18 @@ class PhoneBook
 			return (latest);
 		}
 
-		void	SET_Contact(int new_contact, int i)
+		void	SET_Contact(int i)
 		{
-			if (!new_contact)
-				return;
 			contact[i].SET_Info(i + 1);
 			if (i == 7)
 				latest = 0;
 			else
 				latest = i + 1;
+		}
+
+		void	DISPLAY_Contact(int i)
+		{
+			contact[i].PRINT();
 		}
 
 		void	DISPLAY_Phone_book()
@@ -118,7 +135,7 @@ class PhoneBook
       			<< setw(10) << right << "First Name" << " | "
 				<< setw(10) << right << "Last Name" << " | "
             	<< setw(10) << right << "Nickname" << endl;
-			for (int i(0) ; i < 8 ; i++)
+			for (int i = 0 ; i < 8 ; i++)
 			{
 				if (!contact[i].EXIST())
 				{
@@ -129,10 +146,6 @@ class PhoneBook
 			}
 		}
 
-		void	DISPLAY_Contact(int i)
-		{
-			contact[i].PRINT();
-		}
 };
 
 #endif

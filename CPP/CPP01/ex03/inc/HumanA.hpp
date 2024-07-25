@@ -14,10 +14,6 @@ class HumanA
 		HumanA(const std::string& new_name, Weapon& new_weapon) : name(new_name), weapon(new_weapon) 
 		{
     	}
-		~HumanA()
-		{
-			
-		}
 		void	ATTACK()
 		{
 			cout << name << " attacks with their " << weapon.GET_Type() << endl;

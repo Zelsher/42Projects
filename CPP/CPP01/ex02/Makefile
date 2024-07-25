@@ -1,17 +1,14 @@
-NAME			= unnecessary_violence
+NAME			= Hi_This_Is_Brainz
 
-INC				= inc/
-SRC_DIR			= src/
-OBJ_DIR			= obj/
+INC				=
+SRC_DIR			=
+OBJ_DIR			=
 
 CC				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98 -I $(INC)
 RM				= rm -f
 
 SRC				=	$(SRC_DIR)main.cpp \
-					$(SRC_DIR)Weapon.cpp \
-					$(SRC_DIR)HumanA.cpp \
-					$(SRC_DIR)HumanB.cpp \
 
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))

@@ -24,9 +24,10 @@ class HumanB
 		{
 			cout << name << " attacks with their " << weapon->GET_Type() << endl;
 		}
-		void	SET_Weapon(Weapon new_weapon)
+		void	SET_Weapon(Weapon &new_weapon)
 		{
 			weapon = &new_weapon;
+			ATTACK();
 		}
 };
 

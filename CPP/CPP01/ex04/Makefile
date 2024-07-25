@@ -1,7 +1,7 @@
-NAME			= unnecessary_violence
+NAME			= sed_for_losers
 
-INC				= inc/
-SRC_DIR			= src/
+INC				=
+SRC_DIR			=
 OBJ_DIR			= obj/
 
 CC				= c++
@@ -9,9 +9,7 @@ CFLAGS			= -Wall -Wextra -Werror -std=c++98 -I $(INC)
 RM				= rm -f
 
 SRC				=	$(SRC_DIR)main.cpp \
-					$(SRC_DIR)Weapon.cpp \
-					$(SRC_DIR)HumanA.cpp \
-					$(SRC_DIR)HumanB.cpp \
+					$(SRC_DIR)file.cpp \
 
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))

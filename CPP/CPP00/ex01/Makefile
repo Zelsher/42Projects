@@ -7,20 +7,18 @@ CC				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98
 RM				= rm -f
 
-SRC				=	$(SRC_DIR)PhoneBook.cpp
+SRC				= $(SRC_DIR)PhoneBook.cpp
+HDR				= $(SRC_DIR)PhoneBook.hpp # Ajoutez tous vos fichiers .hpp ici
 
-
-OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
+OBJ 			= $(patsubst $(SRC_DIR)%.cpp,$(OBJ_DIR)%.o,$(SRC))
 
 all: 			$(NAME)
 
-bonus:			$(NAME)
-
-$(NAME): 		$(OBJ) $(INC)
-				@echo $(G)Compiling [$(SRC)]$(X) 
+$(NAME): 		$(OBJ)
+				@echo "Compiling [$(SRC)]"
 				@$(CC) -o $(NAME) $(OBJ)
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.cpp $(HDR)
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -28,7 +26,7 @@ clean:
 				@$(RM) -r $(OBJ_DIR)
 
 fclean: 		clean
-				@echo $(G)delete [$(NAME)]$(X)	
+				@echo "Deleting [$(NAME)]"
 				@$(RM) $(NAME)
 
 re: 			fclean all

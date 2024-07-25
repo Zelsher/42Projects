@@ -3,6 +3,8 @@
         "stddef.h": "c",
         "stdio.h": "c",
         "mlx.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "ostream": "cpp",
+        "typeinfo": "cpp"
     }
 }

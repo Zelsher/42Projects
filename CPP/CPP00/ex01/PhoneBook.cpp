@@ -25,17 +25,7 @@ void    CONSULT_Contact(PhoneBook &phone_book)
 	}
 };
 
-void    ADD_Contact(PhoneBook &phone_book)
-{
-	string  input;
-	int     new_contact;
-	int     i;
-
-	i = phone_book.GET_Latest();
-	phone_book.SET_Contact(new_contact, phone_book.GET_Latest());
-};
-
-int main(int argc, char **argv)
+int main()
 {
 	PhoneBook	phone_book;
 	string		input;
@@ -45,7 +35,7 @@ int main(int argc, char **argv)
 		cout << "Entrez ADD pour ajouter un contact, SEARCH pour acceder a un contact, EXIT pour quitter: ";
 		getline(cin, input);
 		if (input == "ADD")
-			ADD_Contact(phone_book);
+			phone_book.SET_Contact(phone_book.GET_Latest());
 		else if (input == "SEARCH")
 			CONSULT_Contact(phone_book);
 		else if (input == "EXIT")

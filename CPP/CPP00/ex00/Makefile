@@ -7,7 +7,7 @@ CC				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98
 RM				= rm -f
 
-SRC				=	$(SRC_DIR)megaphone.cpp
+SRC				=	$(SRC_DIR)Megaphone.cpp
 
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))

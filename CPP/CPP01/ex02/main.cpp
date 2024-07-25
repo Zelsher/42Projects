@@ -16,4 +16,4 @@ int	main()
 	cout << str << endl;
 	cout << *stringPTR << endl;
 	cout << stringREF << endl;
-}																	
+}
